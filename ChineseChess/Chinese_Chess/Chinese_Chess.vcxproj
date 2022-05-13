@@ -85,11 +85,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Pos.cpp" />
     <QtRcc Include="Chinese_Chess.qrc" />
     <QtUic Include="Chinese_Chess.ui" />
     <QtMoc Include="Chinese_Chess.h" />
+    <ClCompile Include="Chess.cpp" />
     <ClCompile Include="Chinese_Chess.cpp" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Chess.h" />
+    <ClInclude Include="Pos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
