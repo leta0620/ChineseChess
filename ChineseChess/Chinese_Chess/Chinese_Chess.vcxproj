@@ -85,6 +85,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Chess0.cpp" />
+    <ClCompile Include="Chess1.cpp" />
+    <ClCompile Include="Chess2.cpp" />
+    <ClCompile Include="Chess3.cpp" />
+    <ClCompile Include="Chess4.cpp" />
+    <ClCompile Include="Chess5.cpp" />
+    <ClCompile Include="Chess6.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Pos.cpp" />
     <QtRcc Include="Chinese_Chess.qrc" />
     <QtUic Include="Chinese_Chess.ui" />
@@ -94,7 +103,16 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Board.h" />
     <ClInclude Include="Chess.h" />
+    <ClInclude Include="Chess0.h" />
+    <ClInclude Include="Chess1.h" />
+    <ClInclude Include="Chess2.h" />
+    <ClInclude Include="Chess3.h" />
+    <ClInclude Include="Chess4.h" />
+    <ClInclude Include="Chess5.h" />
+    <ClInclude Include="Chess6.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="Pos.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

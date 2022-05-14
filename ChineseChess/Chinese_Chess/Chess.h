@@ -2,11 +2,13 @@
 #include "Pos.h"
 #include <vector>
 
+// ´Ñ¤l¤÷Ãþ§O
 class Chess
 {
 public:
 	Chess();
 	Chess(Pos pos, bool color, int name);
+	Chess(int x, int y, bool color, int name);
 	~Chess();
 
 	void SetPos(Pos);
