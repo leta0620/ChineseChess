@@ -2,11 +2,13 @@
 #include "Pos.h"
 #include <vector>
 
+// 棋子父類別
 class Chess
 {
 public:
 	Chess();
 	Chess(Pos pos, bool color, int name);
+	Chess(int x, int y, bool color, int name);
 	~Chess();
 
 	void SetPos(Pos);
@@ -18,7 +20,6 @@ public:
 	int GetName();
 
 	virtual std::vector<Pos> MoveLegal() = 0;
-	//asd
 
 protected:
 	Pos pos;	// 位置
