@@ -18,6 +18,7 @@ public:
 	int GetName();
 
 	virtual std::vector<Pos> MoveLegal() = 0;
+	//asd
 
 protected:
 	Pos pos;	// ¦ì¸m
