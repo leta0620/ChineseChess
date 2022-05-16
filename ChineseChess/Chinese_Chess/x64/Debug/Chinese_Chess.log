@@ -1,9 +1,6 @@
-﻿  Reading Qt configuration (K:/QT/5.15.2/msvc2019_64/bin/qmake)
-  Board.cpp
-  Chess.cpp
-  GameManager.cpp
-GameManager.obj : warning LNK4020: a type record in 'd:\oop project\中國象棋\git\chinesechess\chinesechess\chinesechess\chinese_chess\x64\debug\vc142.pdb' is corrupted; some symbols and types may not be accessible from the debugger
-GameManager.obj : warning LNK4020: a type record in 'd:\oop project\中國象棋\git\chinesechess\chinesechess\chinesechess\chinese_chess\x64\debug\vc142.pdb' is corrupted; some symbols and types may not be accessible from the debugger
-Board.obj : warning LNK4020: a type record in 'd:\oop project\中國象棋\git\chinesechess\chinesechess\chinesechess\chinese_chess\x64\debug\vc142.pdb' is corrupted; some symbols and types may not be accessible from the debugger
-LINK : warning LNK4020: a type record in 'd:\oop project\中國象棋\git\chinesechess\chinesechess\chinesechess\chinese_chess\x64\debug\vc142.pdb' is corrupted; some symbols and types may not be accessible from the debugger
-  Chinese_Chess.vcxproj -> D:\OOP project\中國象棋\git\ChineseChess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe
+﻿  Reading Qt configuration (D:/goombathings/utility/Qt/5.15.2/msvc2019_64/bin/qmake)
+  moc Chinese_Chess.h
+  Chinese_Chess.cpp
+  main.cpp
+  moc_Chinese_Chess.cpp
+  Chinese_Chess.vcxproj -> D:\my works\Chinese_Chess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe
