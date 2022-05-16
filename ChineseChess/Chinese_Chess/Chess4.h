@@ -5,9 +5,9 @@
 class Chess4 : public Chess
 {
 public:
-	Chess4();
-	~Chess4();
+	Chess4() {
+		name = 4;
+	}
 
-	virtual std::vector<Pos> MoveLegal();
 };
 
