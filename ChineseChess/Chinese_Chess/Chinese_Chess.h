@@ -27,4 +27,5 @@ private:
     Ui::Chinese_ChessClass ui;
     bool eventFilter(QObject* obj, QEvent* eve);
     void prints();
+    void GameProcess(Pos);
 };

@@ -1,4 +1,5 @@
 #include "Chinese_Chess.h"
+#include "Pos.h"
 
 Chinese_Chess::Chinese_Chess(QWidget *parent)
     : QWidget(parent)
@@ -62,8 +63,15 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
     if (eve->type() == QEvent::MouseButtonPress)
     {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(eve);
-        QString temp = QString::number(mouseEvent->x()) + " " + QString::number(mouseEvent->y());
+        QString temp = QString::number(mouseEvent->x()) + " " + QString::number(mouseEvent->y()) + " ";
+        int x = (mouseEvent->x() - 10) / 100;
+        int y = (mouseEvent->y() - 8) / 80;
+        temp += QString::number(x) + " " + QString::number(y);
         ui.textBrowser->setText(temp);
+
+        Pos clickPos(x, y);
+        
+        GameProcess(clickPos);
         return true;
     }
     //繪圖事件
@@ -90,4 +98,10 @@ void Chinese_Chess::prints()
             painter.drawImage(QRect(10 + column * 100, 8 + row * 80, 80, 64), QImage(":/chess/Chessimg/red0.png"));
         }
     }
+}
+
+//遊戲進程
+void Chinese_Chess::GameProcess(Pos)
+{
+
 }
