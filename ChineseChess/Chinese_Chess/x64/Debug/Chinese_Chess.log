@@ -1,17 +1,2 @@
 ﻿  Reading Qt configuration (K:/QT/5.15.2/msvc2019_64/bin/qmake)
-  Board.cpp
-  Chess.cpp
-  Chess0.cpp
-  Chess1.cpp
-  Chess2.cpp
-  Chess3.cpp
-  Chess4.cpp
-  Chess5.cpp
-  Chess6.cpp
-  Chinese_Chess.cpp
-  GameManager.cpp
-  Pos.cpp
-  main.cpp
-  qrc_Chinese_Chess.cpp
-  moc_Chinese_Chess.cpp
   Chinese_Chess.vcxproj -> D:\OOP project\中國象棋\git\ChineseChess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe
