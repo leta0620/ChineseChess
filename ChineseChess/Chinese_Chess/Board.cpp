@@ -18,6 +18,7 @@ void Board::AllSet() {
 			board[i][j] = NULL;
 		}
 	}
+
 	board[9][0] = &R3_0;
 	board[9][1] = &R4_0;
 	board[9][2] = &R2_0;
@@ -83,6 +84,7 @@ void Board::AllSet() {
 	B6_3.PreSet(6, 3, true);
 	B6_4.PreSet(8, 3, true);
 }
+
 
 std::vector<Pos> Board::CanMovePos(Pos P) {
 	std::vector<Pos> Position;
@@ -291,7 +293,6 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 					break;
 				}
 			}
-			// 
 			for (int i = P.y - 1; i <= 0; i--) {
 				if (board[i][P.x] == NULL) {
 					Position.push_back(tmp);

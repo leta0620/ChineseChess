@@ -14,6 +14,7 @@ public:
 	// 預設建構子
 	Board();
 	void AllSet();
+
 	std::vector<Pos> CanMovePos(Pos P);			// 棋子可移動的位置
 	void MovePos(Pos PosFirst, Pos PosSecond);	// 移動棋子位置
 	
