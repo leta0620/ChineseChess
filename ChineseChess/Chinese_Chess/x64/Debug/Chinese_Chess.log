@@ -1,8 +1,6 @@
-﻿  Reading Qt configuration (D:/goombathings/utility/Qt/5.15.2/msvc2019_64/bin/qmake)
-  rcc Chinese_Chess.qrc
-  Chinese_Chess.cpp
-  main.cpp
-  moc_Chinese_Chess.cpp
+﻿  'WHERE' 不是內部或外部命令、可執行的程式或批次檔。
+  Reading Qt configuration (D:/Qt/5.15.2/msvc2019_64/bin/qmake)
+  Board.cpp
   qrc_Chinese_Chess.cpp
-  LINK : D:\my works\Chinese_Chess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe not found or not built by the last incremental link; performing full link
-  Chinese_Chess.vcxproj -> D:\my works\Chinese_Chess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe
+  moc_Chinese_Chess.cpp
+  Chinese_Chess.vcxproj -> C:\Users\OWO\Desktop\main\ChineseChess\x64\Debug\Chinese_Chess.exe

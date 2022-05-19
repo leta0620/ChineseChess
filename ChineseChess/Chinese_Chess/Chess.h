@@ -18,7 +18,7 @@ public:
 	
 protected:
 	Pos pos;	// 位置
-	bool color=false; // 紅為true，黑為false
-	int name=0; // 0~6 將士象車馬砲卒
-	bool alive=true;
+	bool color = false; // 紅為true，黑為false
+	int name = 0; // 0~6 將士象車馬砲卒
+	bool alive = true;
 };
