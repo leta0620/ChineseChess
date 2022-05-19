@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QPaintEvent>
 #include "Board.h"
+#include "GameManager.h"
 #include "ui_Chinese_Chess.h"
 
 class Chinese_Chess : public QWidget
@@ -28,4 +29,8 @@ private:
     bool eventFilter(QObject* obj, QEvent* eve);
     void prints();
     void GameProcess(Pos);
+
+    // 遊戲進行所需變數
+    bool gameRound;  // 遊戲進行步驟，gameRound = true為點擊想移動的旗子，gameRound = false為實際移動旗子。
+    GameManager gameRun;    // 遊戲執行動作
 };

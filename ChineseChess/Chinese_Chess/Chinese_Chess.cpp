@@ -29,6 +29,9 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
     connect(ui.pushButton_Back, SIGNAL(clicked()), this, SLOT(on_pushButton_Back_onclicked()));
     connect(ui.pushButton_Exit, SIGNAL(clicked()), this, SLOT(on_pushButton_Exit_onclicked()));
     connect(ui.pushButton_Print, SIGNAL(clicked()), this, SLOT(on_pushButton_Print_onclicked()));
+
+    // 設定遊戲所需變數
+    this->gameRound = true;
 }
 
 //按鈕切換頁面
@@ -40,6 +43,8 @@ void Chinese_Chess::on_pushButton_Start_onclicked()
 //按鈕切換頁面
 void Chinese_Chess::on_pushButton_Back_onclicked()
 {
+    // 強制結束這場遊戲，close Log檔
+    gameRun.GameOver();
     ui.stackedWidget->setCurrentIndex(0);
 }
 
@@ -70,8 +75,15 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
         ui.textBrowser->setText(temp);
 
         Pos clickPos(x, y);
-        
-        GameProcess(clickPos);
+        for (int check = 0; check < gameRun.GetLigalPos().size(); check++)
+        {
+            if (gameRun.GetLigalPos()[check] == clickPos)
+            {
+                GameProcess(clickPos);
+                break;
+            }
+        }
+
         return true;
     }
     //繪圖事件
@@ -101,7 +113,34 @@ void Chinese_Chess::prints()
 }
 
 //遊戲進程
-void Chinese_Chess::GameProcess(Pos)
+void Chinese_Chess::GameProcess(Pos pos)
 {
+    if (!gameRun.GetGameStart())
+    {
+        gameRun.ResetGame();
+        gameRun.SetGameStart(true);
+    }
 
+    if (this->gameRound)
+    {
+        // 目前步驟為點擊欲移動的棋子
+        gameRun.clickChess(pos);
+        
+        // 繪製盤面
+        
+
+        // 更改遊戲進程
+        this->gameRound = !this->gameRound;
+    }
+    else if (!this->gameRound)
+    {
+        // 目前步驟為移動棋子
+        gameRun.moveChess(pos);        
+
+        // 繪製盤面
+
+
+        // 更改遊戲進程
+        this->gameRound = !this->gameRound;
+    }
 }

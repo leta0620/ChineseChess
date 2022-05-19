@@ -14,10 +14,13 @@ public:
 	// 預設建構子
 	Board();
 	void AllSet();
-	std::vector<Pos> CanMovePos(Pos P); //棋子可移動的位置
-	void MovePos(Pos PosFirst,Pos PosSecond); //移動棋子位置
+
+	std::vector<Pos> CanMovePos(Pos P);			// 棋子可移動的位置
+	void MovePos(Pos PosFirst, Pos PosSecond);	// 移動棋子位置
 	
 	std::vector<std::vector<Chess*>> board; // 盤面
+
+private:
 	Chess0 B0,R0;
 	Chess1 B1_0, B1_1, R1_0, R1_1;
 	Chess2 B2_0, B2_1, R2_0, R2_1;
