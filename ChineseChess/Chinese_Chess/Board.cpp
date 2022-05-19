@@ -262,39 +262,55 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 			}
 			break;
 		case 3:
+			tmp = P;
 			for (int i = P.x + 1; i <= 8; i++) {
+				tmp.x = i;
 				if (board[P.y][i] == NULL) {
 					Position.push_back(tmp);
 				}
-				if (board[P.y][i] != NULL && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
+				else if (board[P.y][i] != NULL && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
 					Position.push_back(tmp);
+				}
+				else {
 					break;
 				}
 			}
 			for (int i = P.x - 1; i >= 0; i--) {
+				tmp.x = i;
 				if (board[P.y][i] == NULL) {
 					Position.push_back(tmp);
 				}
-				if (board[P.y][i] != NULL && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
+				else if (board[P.y][i] != NULL && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
 					Position.push_back(tmp);
+				}
+				else {
 					break;
 				}
 			}
+			tmp = P;
 			for (int i = P.y + 1; i <= 9; i++) {
+				tmp.y = i;
 				if (board[i][P.x] == NULL) {
 					Position.push_back(tmp);
 				}
-				if (board[i][P.x] != NULL && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
+				else if (board[i][P.x] != NULL && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
 					Position.push_back(tmp);
 					break;
 				}
+				else {
+					break;
+				}
 			}
-			for (int i = P.y - 1; i <= 0; i--) {
+			for (int i = P.y - 1; i >= 0; i--) {
+				tmp.y = i;
 				if (board[i][P.x] == NULL) {
 					Position.push_back(tmp);
 				}
-				if (board[i][P.x] != NULL && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
+				else if (board[i][P.x] != NULL && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
 					Position.push_back(tmp);
+					break;
+				}
+				else {
 					break;
 				}
 			}
@@ -398,7 +414,7 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 				}
 			}
 			temp = 0;
-			for (int i = P.y - 1; i <= 0; i--) {
+			for (int i = P.y - 1; i >= 0; i--) {
 				if (board[i][P.x] != NULL && temp == 1 && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
 					Position.push_back(tmp);
 					break;
@@ -452,7 +468,9 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 }
 void Board::MovePos(Pos PosFirst, Pos PosSecond) {
 	Chess* temp;
+	board[PosFirst.y][PosFirst.x]->SetPos(PosSecond);
 	temp = board[PosFirst.y][PosFirst.x];
 	board[PosSecond.y][PosSecond.x] = temp;
 	board[PosFirst.y][PosFirst.x] = NULL;
+
 }
