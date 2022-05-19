@@ -450,12 +450,12 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 				Position.push_back(tmp);
 			}
 			tmp = P;
-			if (P.y >= 5 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
+			if (P.y >= 5 && P.x <= 7 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
 				tmp.x += 1;
 				Position.push_back(tmp);
 			}
 			tmp = P;
-			if (P.y >= 5 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
+			if (P.y >= 5 && P.x >= 1 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
 				tmp.x -= 1;
 				Position.push_back(tmp);
 			}
@@ -467,12 +467,12 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 				Position.push_back(tmp);
 			}
 			tmp = P;
-			if (P.y <= 4 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
+			if (P.y <= 4 && P.x <= 7 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
 				tmp.x += 1;
 				Position.push_back(tmp);
 			}
 			tmp = P;
-			if (P.y <= 4 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
+			if (P.y <= 4 && P.x >= 1 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
 				tmp.x -= 1;
 				Position.push_back(tmp);
 			}
