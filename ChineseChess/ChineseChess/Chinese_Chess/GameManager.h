@@ -36,6 +36,7 @@ public:
 	// 設定遊戲開始
 	void SetGameStart(bool in);
 
+	bool GetGamePlayer();
 	// Viewer物件
 	Viewer viewer;	
 

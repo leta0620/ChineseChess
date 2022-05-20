@@ -87,6 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GameOver.cpp" />
     <ClCompile Include="Pos.cpp" />
     <ClCompile Include="Viewer.cpp" />
     <QtRcc Include="Chinese_Chess.qrc" />
@@ -95,6 +96,7 @@
     <ClCompile Include="Chess.cpp" />
     <ClCompile Include="Chinese_Chess.cpp" />
     <ClCompile Include="main.cpp" />
+    <QtUic Include="GameOver.ui" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
@@ -107,6 +109,7 @@
     <ClInclude Include="Chess5.h" />
     <ClInclude Include="Chess6.h" />
     <ClInclude Include="GameManager.h" />
+    <QtMoc Include="GameOver.h" />
     <ClInclude Include="Pos.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>

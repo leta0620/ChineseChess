@@ -33,7 +33,8 @@ public:
     QWidget *page_1;
     QPushButton *pushButton_Back;
     QTextBrowser *textBrowser;
-    QPushButton *pushButton_Print;
+    QPushButton *pushButton_Surrender;
+    QLabel *label_3;
 
     void setupUi(QWidget *Chinese_ChessClass)
     {
@@ -86,14 +87,21 @@ public:
         pushButton_Back->setFont(font);
         textBrowser = new QTextBrowser(page_1);
         textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(930, 30, 256, 41));
+        textBrowser->setGeometry(QRect(930, 140, 256, 41));
         QFont font2;
         font2.setPointSize(15);
         textBrowser->setFont(font2);
-        pushButton_Print = new QPushButton(page_1);
-        pushButton_Print->setObjectName(QString::fromUtf8("pushButton_Print"));
-        pushButton_Print->setGeometry(QRect(1050, 540, 111, 51));
-        pushButton_Print->setFont(font2);
+        pushButton_Surrender = new QPushButton(page_1);
+        pushButton_Surrender->setObjectName(QString::fromUtf8("pushButton_Surrender"));
+        pushButton_Surrender->setGeometry(QRect(1050, 640, 111, 51));
+        pushButton_Surrender->setFont(font2);
+        label_3 = new QLabel(page_1);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(950, 30, 211, 51));
+        QFont font3;
+        font3.setPointSize(24);
+        label_3->setFont(font3);
+        label_3->setAlignment(Qt::AlignCenter);
         stackedWidget->addWidget(page_1);
 
         retranslateUi(Chinese_ChessClass);
@@ -113,8 +121,9 @@ public:
         pushButton_Exit->setText(QCoreApplication::translate("Chinese_ChessClass", "\347\265\220\346\235\237", nullptr));
         label->setText(QCoreApplication::translate("Chinese_ChessClass", "\350\261\241\346\243\213", nullptr));
         label_2->setText(QCoreApplication::translate("Chinese_ChessClass", "Elephant Chess", nullptr));
-        pushButton_Back->setText(QCoreApplication::translate("Chinese_ChessClass", "\350\277\224\345\233\236", nullptr));
-        pushButton_Print->setText(QCoreApplication::translate("Chinese_ChessClass", "\345\215\260\345\207\272\347\233\244\351\235\242", nullptr));
+        pushButton_Back->setText(QCoreApplication::translate("Chinese_ChessClass", "\345\233\236\344\270\273\347\225\253\351\235\242", nullptr));
+        pushButton_Surrender->setText(QCoreApplication::translate("Chinese_ChessClass", "\346\212\225\351\231\215", nullptr));
+        label_3->setText(QCoreApplication::translate("Chinese_ChessClass", "\347\264\205\346\226\271\345\233\236\345\220\210", nullptr));
     } // retranslateUi
 
 };

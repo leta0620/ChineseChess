@@ -258,3 +258,8 @@ void GameManager::SetGameStart(bool in)
 {
 	this->gameStart = in;
 }
+
+bool GameManager::GetGamePlayer()
+{
+	return gamePlayer;
+}
