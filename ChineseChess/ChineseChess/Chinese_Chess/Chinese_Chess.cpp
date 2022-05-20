@@ -40,7 +40,6 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
 void Chinese_Chess::on_pushButton_Start_onclicked()
 {
     gameRun.ResetGame();
-    gameRun.SetGameStart(true);
 
     ui.stackedWidget->setCurrentIndex(1);
 }
@@ -139,7 +138,6 @@ void Chinese_Chess::GameProcess(Pos pos)
     if (!gameRun.GetGameStart())
     {
         gameRun.ResetGame();
-        gameRun.SetGameStart(true);
     }
 
     if (this->gameRound)

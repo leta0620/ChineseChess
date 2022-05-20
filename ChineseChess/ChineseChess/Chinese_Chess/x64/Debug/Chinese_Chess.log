@@ -1,4 +1,4 @@
 ﻿  Reading Qt configuration (K:/QT/5.15.2/msvc2019_64/bin/qmake)
-  Board.cpp
-  LINK : D:\OOP project\中國象棋\git\ChineseChess\test\ChineseChess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe not found or not built by the last incremental link; performing full link
+  GameManager.cpp
+D:\OOP project\中國象棋\git\ChineseChess\test\ChineseChess\ChineseChess\ChineseChess\Chinese_Chess\GameManager.cpp(161,6): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
   Chinese_Chess.vcxproj -> D:\OOP project\中國象棋\git\ChineseChess\test\ChineseChess\ChineseChess\ChineseChess\x64\Debug\Chinese_Chess.exe

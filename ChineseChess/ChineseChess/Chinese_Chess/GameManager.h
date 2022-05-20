@@ -14,6 +14,8 @@ class GameManager
 public:
 	GameManager();
 
+	//---------funtion-----------
+	//
 	// 標出可移動的位置
 	bool clickChess(Pos);
 	// 移動棋子，並將另一方的棋子設為合法，存log
@@ -35,10 +37,15 @@ public:
 	bool GetGameStart();
 	// 設定遊戲開始
 	void SetGameStart(bool in);
+	// 讀取檔案，更改盤面
+	void LoadLog();
 
+
+
+	//-----------物件---------------
+	// 
 	// Viewer物件
 	Viewer viewer;	
-
 	// 宣告盤面物件
 	Board boardGM;
 private:
