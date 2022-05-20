@@ -109,7 +109,7 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 		if (!board[P.y][P.x]->GetColor()) {
 			for (int i = P.y + 1; i <= 9; i++) {
 				if (board[i][P.x] != NULL && board[i][P.x]->GetName()==0) {
-					Pos tmp(i,P.x);
+					Pos tmp(P.x,i);
 					Position.push_back(tmp);
 				}
 				else if (board[i][P.x] != NULL) {
@@ -120,7 +120,7 @@ std::vector<Pos> Board::CanMovePos(Pos P) {
 		else{
 			for (int i = P.y - 1; i >= 0; i--) {
 				if (board[i][P.x] != NULL && board[i][P.x]->GetName() == 0) {
-					Pos tmp(i, P.x);
+					Pos tmp(P.x, i);
 					Position.push_back(tmp);
 				}
 				else if (board[i][P.x] != NULL) {
