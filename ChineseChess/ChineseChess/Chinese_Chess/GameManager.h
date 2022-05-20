@@ -15,33 +15,28 @@ public:
 	GameManager();
 
 	// 標出可移動的位置
-	void clickChess(Pos);
+	bool clickChess(Pos);
 	// 移動棋子，並將另一方的棋子設為合法，存log
 	void moveChess(Pos);
+
 	// 判斷勝負
-	bool Win();
+	int Win();
 	// 是否將軍
-	bool WillWin();
-
-	// 獲取ligalPos
-	std::vector<Pos> GetLigalPos();
-
-	// 設定ligalPos
-	void SetLigalPos(std::vector<Pos> ligalPos);
-
+	int WillWin();
+	// 獲取legalPos
+	std::vector<Pos> GetLegalPos();
+	// 設定legalPos
+	void SetLegalPos(std::vector<Pos> legalPos);
 	// 結束遊戲
 	void GameOver();
-
 	// 重新開始遊戲
 	void ResetGame();
-
 	// 讀取遊戲是否開始
 	bool GetGameStart();
-
 	// 設定遊戲開始
 	void SetGameStart(bool in);
 
-	//Viewer物件
+	// Viewer物件
 	Viewer viewer;	
 
 	// 宣告盤面物件
@@ -51,7 +46,7 @@ private:
 	bool gameStart;
 
 	// 合法的點擊位置
-	std::vector<Pos> ligalPos;
+	std::vector<Pos> legalPos;
 	
 	// 目前正在移動的棋子
 	Pos nowMovChess;

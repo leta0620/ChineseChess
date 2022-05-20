@@ -39,6 +39,9 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
 //按鈕切換頁面
 void Chinese_Chess::on_pushButton_Start_onclicked()
 {
+    gameRun.ResetGame();
+    gameRun.SetGameStart(true);
+
     ui.stackedWidget->setCurrentIndex(1);
 }
 
@@ -78,9 +81,9 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
         ui.textBrowser->setText(temp);
 
         Pos clickPos(x, y);
-        for (int check = 0; check < gameRun.GetLigalPos().size(); check++)
+        for (int check = 0; check < gameRun.GetLegalPos().size(); check++)
         {
-            if (gameRun.GetLigalPos()[check] == clickPos)
+            if (gameRun.GetLegalPos()[check] == clickPos)
             {
                 GameProcess(clickPos);
                 break;
@@ -142,8 +145,11 @@ void Chinese_Chess::GameProcess(Pos pos)
     if (this->gameRound)
     {
         // 目前步驟為點擊欲移動的棋子
-        gameRun.clickChess(pos);
-        
+        if (gameRun.clickChess(pos))
+        {
+            return;
+        }
+                
         // 繪製盤面
         gameRun.viewer.paintout();
 
@@ -160,5 +166,39 @@ void Chinese_Chess::GameProcess(Pos pos)
 
         // 更改遊戲進程
         this->gameRound = !this->gameRound;
+
+        // 判斷勝負
+        int win = gameRun.Win();
+        if (win == 1)
+        {
+            // 跳遊戲結束警示框，紅方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
+            ui.textBrowser->setText("Red win");
+
+            gameRun.GameOver();
+            return;
+        }
+        else if (win == 2)
+        {
+            // 跳遊戲結束警示框，黑方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
+            ui.textBrowser->setText("Black win");
+
+            gameRun.GameOver();
+            return;
+        }
+
+        // 判斷將軍
+        int willWin = gameRun.WillWin();
+        if (willWin == 1)
+        {
+            // 跳紅方將軍警示框
+            ui.textBrowser->setText("Red will win");
+
+        }
+        else if (willWin == 2)
+        {
+            // 跳黑方將軍警示框
+            ui.textBrowser->setText("Black will win");
+
+        }
     }
 }
