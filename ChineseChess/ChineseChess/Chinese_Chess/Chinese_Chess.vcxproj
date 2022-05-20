@@ -86,6 +86,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Chess0.cpp" />
+    <ClCompile Include="Chess1.cpp" />
+    <ClCompile Include="Chess2.cpp" />
+    <ClCompile Include="Chess3.cpp" />
+    <ClCompile Include="Chess4.cpp" />
+    <ClCompile Include="Chess5.cpp" />
+    <ClCompile Include="Chess6.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Pos.cpp" />
     <ClCompile Include="Viewer.cpp" />

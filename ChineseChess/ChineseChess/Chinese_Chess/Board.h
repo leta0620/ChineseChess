@@ -19,6 +19,7 @@ public:
 	void MovePos(Pos PosFirst, Pos PosSecond);	// 移動棋子位置
 	
 	std::vector<std::vector<Chess*>> board; // 盤面
+	std::vector<std::vector<int>> boardinfo; //棋子需要的資訊 0:空 1:黑 2:紅
 
 private:
 	Chess0 B0,R0;
