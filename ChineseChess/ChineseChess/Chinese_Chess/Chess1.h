@@ -8,4 +8,5 @@ public:
 	Chess1() {
 		name = 1; 
 	}
+	virtual std::vector<Pos> CanMove(Pos P, std::vector<std::vector<int>> Boardinfo);
 };

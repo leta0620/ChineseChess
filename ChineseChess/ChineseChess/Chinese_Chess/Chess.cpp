@@ -22,9 +22,3 @@ bool Chess::GetColor() {
 int Chess::GetName() {
 	return name;
 }
-bool Chess::Getalive() {
-	return alive;
-}
-void Chess::Setalive(bool live) {
-	alive = live;
-}
