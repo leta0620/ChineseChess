@@ -157,18 +157,18 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>19</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>返回</string>
+      <string>儲存並返回</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="textBrowser">
      <property name="geometry">
       <rect>
        <x>930</x>
-       <y>30</y>
+       <y>140</y>
        <width>256</width>
        <height>41</height>
       </rect>
@@ -179,11 +179,11 @@
       </font>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_Print">
+    <widget class="QPushButton" name="pushButton_Surrender">
      <property name="geometry">
       <rect>
        <x>1050</x>
-       <y>540</y>
+       <y>640</y>
        <width>111</width>
        <height>51</height>
       </rect>
@@ -194,7 +194,28 @@
       </font>
      </property>
      <property name="text">
-      <string>印出盤面</string>
+      <string>投降</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>950</x>
+       <y>30</y>
+       <width>211</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>24</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>紅方回合</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </widget>

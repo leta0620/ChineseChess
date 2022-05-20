@@ -39,7 +39,8 @@ public:
 	void SetGameStart(bool in);
 	// 讀取檔案，更改盤面
 	void LoadLog();
-
+	// 獲取玩家
+	bool GetGamePlayer();
 
 
 	//-----------物件---------------

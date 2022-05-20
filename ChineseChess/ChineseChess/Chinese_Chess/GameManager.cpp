@@ -266,6 +266,12 @@ void GameManager::SetGameStart(bool in)
 	this->gameStart = in;
 }
 
+
+bool GameManager::GetGamePlayer()
+{
+	return gamePlayer;
+}
+
 // 讀取檔案，更改盤面
 void LoadLog()
 {
