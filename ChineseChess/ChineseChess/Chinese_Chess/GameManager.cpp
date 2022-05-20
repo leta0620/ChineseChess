@@ -19,7 +19,7 @@ GameManager::GameManager()
 	this->fileName = GetTime() + ".txt";
 	this->gamePlayer = true;
 
-	std::vector<Pos> newLigalList;
+	std::vector<Pos> newLegalList;
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 9; x++)
@@ -28,23 +28,31 @@ GameManager::GameManager()
 			{
 				if (boardGM.board[y][x]->GetColor() == gamePlayer)
 				{
-					newLigalList.push_back(boardGM.board[y][x]->GetPos());
+					newLegalList.push_back(boardGM.board[y][x]->GetPos());
 				}
 			}		
 		}
 	}
-	this->ligalPos = newLigalList;
+	this->legalPos = newLegalList;
 }
 
 // 標出可移動的位置
-void GameManager::clickChess(Pos pos)
+bool GameManager::clickChess(Pos pos)
 {
 	// 設置目前移動的位子是哪一顆棋子
 	this->nowMovChess = pos;
 
 	// 找出可移動的位置
-	this->ligalPos = boardGM.CanMovePos(pos);
-	return;
+	std::vector<Pos> tmpPos= boardGM.CanMovePos(pos);
+	if (tmpPos.empty())
+	{
+		return true;
+	}
+	else
+	{
+		this->legalPos = tmpPos;
+		return false;
+	}	
 }
 
 // 移動棋子，並將另一方的棋子設為合法，存log
@@ -53,25 +61,52 @@ void GameManager::moveChess(Pos pos)
 	// 移動棋子
 	boardGM.MovePos(this->nowMovChess, pos);
 
-	// 出log檔
+	// 輸出log檔
 	if (!file.is_open())
 	{
 		file.open(this->fileName);
 	}
-	//file.open(this->fileName);
 
-	if (boardGM.board[pos.y][pos.x]->GetColor() == false)
+	file << "Player: ";
+	if (this->gamePlayer == true)
 	{
-		file << "Black";
+		file << "1";
 	}
-	else if (boardGM.board[pos.y][pos.x]->GetColor() == true)
+	else if (this->gamePlayer == false)
 	{
-		file << "Red";
+		file << "2";
 	}
-	file << " " << boardGM.board[pos.y][pos.x]->GetName() <<
-		" move from (" << nowMovChess.x << ", " << nowMovChess.y <<
-		") to (" << pos.x << ", " << pos.y << ")\n";
-	// file.close();
+	file << ", Action: ";
+
+	switch (boardGM.board[pos.y][pos.x]->GetName())
+	{
+	case 0:
+		file << "General";
+		break;
+	case 1:
+		file << "Advisor";
+		break;
+	case 2:
+		file << "Elephant";
+		break;
+	case 3:
+		file << "Chariot";
+		break;
+	case 4:
+		file << "Horse";
+		break;
+	case 5:
+		file << "Cannon";
+		break;
+	case 6:
+		file << "Soldier";
+		break;
+	default:
+		break;
+	}
+
+	file << " (" << nowMovChess.x << ", " << nowMovChess.y <<
+		") -> (" << pos.x << ", " << pos.y << ")\n";
 
 	// 重置參數
 	this->nowMovChess.x = 0;
@@ -93,32 +128,110 @@ void GameManager::moveChess(Pos pos)
 			}
 		}
 	}
-	this->ligalPos = newLigalList;
+	this->legalPos = newLigalList;
 
 	return;
 }
+
 // 判斷勝負
-bool GameManager::Win()
+int GameManager::Win()
 {
-	// 如果獲勝，記得gameover
-	return true;
+	bool Red0 = false;
+	bool black0 = false;
+
+	// 尋找棋盤，看是否有將/帥死亡
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 9; x++)
+		{
+			if (boardGM.board[y][x] != NULL)
+			{
+				if (boardGM.board[y][x]->GetName() == 0)
+				{
+					switch (boardGM.board[y][x]->GetColor())
+					{
+					case true:
+						Red0 = true;
+						break;
+					case false:
+						black0 = true;
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	if (Red0 == false)
+	{// 紅帥死，黑方勝
+		return 2;
+	}
+	else if (black0 == false)
+	{// 黑將死，紅方勝
+		return 1;
+	}
+
+	return 0;
 }
+
 // 是否將軍
-bool GameManager::WillWin()
+int GameManager::WillWin()
 {
-	return true;
+	// 檢查盤面
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 9; x++)
+		{
+			// 若此位置有棋子
+			if (boardGM.board[y][x] != NULL)
+			{
+				if (boardGM.board[y][x]->GetColor() == !gamePlayer)
+				{
+					std::vector<Pos> legalPos;
+					Pos tmp(x, y);
+					legalPos = boardGM.CanMovePos(tmp);
+
+					// 檢查可移動的位置中是否有對方將/帥
+					for (int check = 0; check < legalPos.size(); check++)
+					{
+						if (boardGM.board[legalPos[check].y][legalPos[check].x] != NULL)
+						{
+							if (boardGM.board[legalPos[check].y][legalPos[check].x]->GetName() == 0 && boardGM.board[legalPos[check].y][legalPos[check].x]->GetColor() == gamePlayer)
+							{
+								if (!gamePlayer == true)
+								{
+									// 紅方將軍
+									return 1;
+								}
+								if (!gamePlayer == false)
+								{
+									// 黑方將軍
+									return 2;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return 0;
 }
 
-// 獲取ligalPos
-std::vector<Pos> GameManager::GetLigalPos()
+
+// 獲取legalPos
+std::vector<Pos> GameManager::GetLegalPos()
 {
-	return this->ligalPos;
+	return this->legalPos;
 }
 
-// 設定ligalPos
-void GameManager::SetLigalPos(std::vector<Pos> ligalPos)
+// 設定legalPos
+void GameManager::SetLegalPos(std::vector<Pos> legalPos)
 {
-	this->ligalPos = ligalPos;
+	this->legalPos = legalPos;
 }
 
 // 結束遊戲
@@ -131,27 +244,14 @@ void GameManager::GameOver()
 // 重新開始遊戲
 void GameManager::ResetGame()
 {
-	Board tmpB;
-	this->boardGM = tmpB;
-	this->gamePlayer = true;
-
-	std::vector<Pos> newLigalList;
-	for (int y = 0; y < 10; y++)
-	{
-		for (int x = 0; x < 9; x++)
-		{
-			if (boardGM.board[y][x] != NULL)
-			{
-				if (boardGM.board[y][x]->GetColor() == gamePlayer)
-				{
-					newLigalList.push_back(boardGM.board[y][x]->GetPos());
-				}
-			}
-		}
-	}
-	this->ligalPos = newLigalList;
-
-	this->fileName = GetTime() + ".txt";
+	GameManager tmp;
+	this->gameStart = tmp.gameStart;
+	this->legalPos = tmp.legalPos;
+	this->nowMovChess = tmp.nowMovChess;
+	this->fileName = tmp.fileName;
+	this->gamePlayer = tmp.gamePlayer;
+	this->boardGM.AllSet();
+	this->SetGameStart(true);
 }
 
 // 讀取遊戲是否開始
@@ -164,4 +264,10 @@ bool GameManager::GetGameStart()
 void GameManager::SetGameStart(bool in)
 {
 	this->gameStart = in;
+}
+
+// 讀取檔案，更改盤面
+void LoadLog()
+{
+	std::ifstream Log;
 }
