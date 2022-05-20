@@ -24,6 +24,9 @@ private slots :
     void on_pushButton_Exit_onclicked();
     void on_pushButton_Surrender_onclicked();
     void receiveSel(bool sel);
+    void CallGameOver();
+    void CallGameStart();
+
 private:
     Ui::Chinese_ChessClass ui;
     bool eventFilter(QObject* obj, QEvent* eve);

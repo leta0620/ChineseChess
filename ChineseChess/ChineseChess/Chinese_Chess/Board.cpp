@@ -3,9 +3,11 @@
 Board::Board()
 {
 	board.resize(10);
+	boardinfo.resize(10);
 	for (int y = 0; y < 10; y++)
 	{
 		board[y].resize(9);
+		boardinfo[y].resize(9);
 	}
 	AllSet();
 }
@@ -15,6 +17,7 @@ void Board::AllSet() {
 		for (int j = 0; j < 9; j++)
 		{
 			board[i][j] = NULL;
+			boardinfo[i][j]=0;
 		}
 	}
 	board[0][0] = &B3_0;
@@ -82,410 +85,38 @@ void Board::AllSet() {
 	R6_2.PreSet(4, 6, true);
 	R6_3.PreSet(6, 6, true);
 	R6_4.PreSet(8, 6, true);
+
+	for (int j = 0; j < 9; j++)
+	{
+		boardinfo[0][j] = 1;
+		boardinfo[9][j] = 2;
+	}
+	for (int j = 0; j < 9; j += 2)
+	{
+		boardinfo[3][j] = 1;
+		boardinfo[6][j] = 2;
+	}
+	for (int j = 1; j <= 7; j += 6)
+	{
+		boardinfo[2][j] = 1;
+		boardinfo[7][j] = 2;
+	}
 }
 std::vector<Pos> Board::CanMovePos(Pos P) {
 	std::vector<Pos> Position;
-	Pos tmp = P;
-	int temp;
-	switch (board[P.y][P.x]->GetName()) {
-	case 0:
-		if (P.x <= 4 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-			tmp.x = P.x + 1;
-			Position.push_back(tmp);
-		}
-		if (P.x >= 4 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-			tmp.x = P.x - 1;
-			Position.push_back(tmp);
-		}
-		tmp = P;
-		if (!board[P.y][P.x]->GetColor()) {
-			if (P.y <= 1 && (board[P.y + 1][P.x] == NULL || (board[P.y + 1][P.x]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.y = P.y + 1;
-				Position.push_back(tmp);
-			}
-			if (P.y >= 1 && (board[P.y - 1][P.x] == NULL || (board[P.y - 1][P.x]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.y = P.y - 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			for (int i = P.y + 1; i <= 9; i++) {
-				if (board[i][P.x] != NULL && board[i][P.x]->GetName() == 0) {
-					tmp.y = i;
-					Position.push_back(tmp);
-				}
-				else if (board[i][P.x] != NULL) {
-					break;
-				}
-			}
-		}
-		else {
-			if (P.y <= 8 && (board[P.y + 1][P.x] == NULL || (board[P.y + 1][P.x]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.y = P.y + 1;
-				Position.push_back(tmp);
-			}
-			if (P.y >= 8 && (board[P.y - 1][P.x] == NULL || (board[P.y - 1][P.x]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.y = P.y - 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			for (int i = P.y; i >= 0; i--) {
-				if (board[i][P.x] != NULL && board[i][P.x]->GetName() == 0) {
-					tmp.y = i;
-					Position.push_back(tmp);
-				}
-				else if (board[i][P.x] != NULL) {
-					break;
-				}
-			}
-		}
-		break;
-	case 1:
-		if (!board[P.y][P.x]->GetColor()) {
-			if ((P.x <= 4 && P.y <= 1) && (board[P.y + 1][P.x + 1] == NULL || (board[P.y + 1][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x += 1;
-				tmp.y += 1;
-				Position.push_back(tmp);
-			}
-			if ((P.x >= 4 && P.y <= 1) && (board[P.y + 1][P.x - 1] == NULL || (board[P.y + 1][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x -= 1;
-				tmp.y += 1;
-				Position.push_back(tmp);
-			}
-			if ((P.x <= 4 && P.y >= 1) && (board[P.y - 1][P.x + 1] == NULL || (board[P.y - 1][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x += 1;
-				tmp.y -= 1;
-				Position.push_back(tmp);
-			}
-			if ((P.x >= 4 && P.y >= 1) && (board[P.y - 1][P.x - 1] == NULL || (board[P.y - 1][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x -= 1;
-				tmp.y -= 1;
-				Position.push_back(tmp);
-			}
-		}
-		else {
-			if ((P.x <= 4 && P.y <= 8) && (board[P.y + 1][P.x + 1] == NULL || (board[P.y + 1][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x += 1;
-				tmp.y += 1;
-				Position.push_back(tmp);
-			}
-			if ((P.x >= 4 && P.y <= 8) && (board[P.y + 1][P.x - 1] == NULL || (board[P.y + 1][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x -= 1;
-				tmp.y += 1;
-				Position.push_back(tmp);
-			}
-			if ((P.x <= 4 && P.y >= 8) && (board[P.y - 1][P.x + 1] == NULL || (board[P.y - 1][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x += 1;
-				tmp.y -= 1;
-				Position.push_back(tmp);
-			}
-			if ((P.x >= 4 && P.y >= 8) && (board[P.y - 1][P.x - 1] == NULL || (board[P.y - 1][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x -= 1;
-				tmp.y -= 1;
-				Position.push_back(tmp);
-			}
-		}
-		break;
-	case 2:
-		if (!board[P.y][P.x]->GetColor()) {
-			tmp = P;
-			if ((P.x <= 6 && P.y <= 2) && (board[P.y + 2][P.x + 2] == NULL || (board[P.y + 2][P.x + 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x += 2;
-				tmp.y += 2;
-				if (board[P.y + 1][P.x + 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-			tmp = P;
-			if ((P.x >= 2 && P.y <= 2) && (board[P.y + 2][P.x - 2] == NULL || (board[P.y + 2][P.x - 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-
-				tmp.x -= 2;
-				tmp.y += 2;
-				if (board[P.y + 1][P.x - 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-			tmp = P;
-			if ((P.x <= 6 && P.y >= 2) && (board[P.y - 2][P.x + 2] == NULL || (board[P.y - 2][P.x + 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x += 2;
-				tmp.y -= 2;
-				if (board[P.y - 1][P.x + 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-			tmp = P;
-			if ((P.x >= 2 && P.y >= 2) && (board[P.y - 2][P.x - 2] == NULL || (board[P.y - 2][P.x - 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x -= 2;
-				tmp.y -= 2;
-				if (board[P.y - 1][P.x - 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-		}
-		else {
-			tmp = P;
-			if ((P.x <= 6 && P.y <= 7) && (board[P.y + 2][P.x + 2] == NULL || (board[P.y + 2][P.x + 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x += 2;
-				tmp.y += 2;
-				if (board[P.y + 1][P.x + 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-			tmp = P;
-			if ((P.x >= 2 && P.y <= 7) && (board[P.y + 2][P.x - 2] == NULL || (board[P.y + 2][P.x - 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x -= 2;
-				tmp.y += 2;
-				if (board[P.y + 1][P.x - 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-			tmp = P;
-			if ((P.x <= 6 && P.y >= 7) && (board[P.y - 2][P.x + 2] == NULL || (board[P.y - 2][P.x + 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x += 2;
-				tmp.y -= 2;
-				if (board[P.y - 1][P.x + 1] == NULL) {
-					Position.push_back(tmp);
-				}
-			}
-			tmp = P;
-			if ((P.x >= 2 && P.y >= 7) && (board[P.y - 2][P.x - 2] == NULL || (board[P.y - 2][P.x - 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x -= 2;
-				tmp.y -= 2;
-				if (board[P.y - 1][P.x - 1] == NULL) {
-					Position.push_back(tmp);
-				}
-
-			}
-		}
-		break;
-	case 3:
-		tmp = P;
-		for (int i = P.x + 1; i <= 8; i++) {
-			tmp.x = i;
-			if (board[P.y][i] == NULL) {
-				Position.push_back(tmp);
-			}
-			else if (board[P.y][i] != NULL && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
-				Position.push_back(tmp);
-				break;
-			}
-			else {
-				break;
-			}
-		}
-		for (int i = P.x - 1; i >= 0; i--) {
-			tmp.x = i;
-			if (board[P.y][i] == NULL) {
-				Position.push_back(tmp);
-			}
-			else if (board[P.y][i] != NULL && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
-				Position.push_back(tmp);
-				break;
-			}
-			else {
-				break;
-			}
-		}
-		tmp = P;
-		for (int i = P.y + 1; i <= 9; i++) {
-			tmp.y = i;
-			if (board[i][P.x] == NULL) {
-				Position.push_back(tmp);
-			}
-			else if (board[i][P.x] != NULL && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
-				Position.push_back(tmp);
-				break;
-			}
-			else {
-				break;
-			}
-		}
-		for (int i = P.y - 1; i >= 0; i--) {
-			tmp.y = i;
-			if (board[i][P.x] == NULL) {
-				Position.push_back(tmp);
-			}
-			else if (board[i][P.x] != NULL && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
-				Position.push_back(tmp);
-				break;
-			}
-			else {
-				break;
-			}
-		}
-		break;
-	case 4:
-		if (P.y <= 7 && board[P.y + 1][P.x] == NULL) {
-			tmp = P;
-			if (P.x >= 1 && (board[P.y + 2][P.x - 1] == NULL || (board[P.y + 2][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp = P;
-				tmp.x = P.x - 1;
-				tmp.y = P.y + 2;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.x <= 7 && (board[P.y + 2][P.x + 1] == NULL || (board[P.y + 2][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x + 1;
-				tmp.y = P.y + 2;
-				Position.push_back(tmp);
-			}
-		}
-		if (P.y >= 2 && board[P.y - 1][P.x] == NULL) {
-			tmp = P;
-			if (P.x >= 1 && (board[P.y - 2][P.x - 1] == NULL || (board[P.y - 2][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x - 1;
-				tmp.y = P.y - 2;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.x <= 7 && (board[P.y - 2][P.x + 1] == NULL || (board[P.y - 2][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x + 1;
-				tmp.y = P.y - 2;
-				Position.push_back(tmp);
-			}
-		}
-		if (P.x <= 6 && board[P.y][P.x + 1] == NULL) {
-			tmp = P;
-			if (P.y >= 1 && (board[P.y - 1][P.x + 2] == NULL || (board[P.y - 1][P.x + 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x + 2;
-				tmp.y = P.y - 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.y <= 8 && (board[P.y + 1][P.x + 2] == NULL || (board[P.y + 1][P.x + 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x + 2;
-				tmp.y = P.y + 1;
-				Position.push_back(tmp);
-			}
-		}
-		if (P.x >= 2 && board[P.y][P.x - 1] == NULL) {
-			tmp = P;
-			if (P.y >= 1 && (board[P.y - 1][P.x - 2] == NULL || (board[P.y - 1][P.x - 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x - 2;
-				tmp.y = P.y - 1;
-				Position.push_back(tmp);
-			}
-			if (P.y <= 8 && (board[P.y + 1][P.x - 2] == NULL || (board[P.y + 1][P.x - 2]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x = P.x + 2;
-				tmp.y = P.y - 1;
-				Position.push_back(tmp);
-			}
-		}
-		break;
-	case 5:
-		tmp = P;
-		temp = 0;
-		for (int i = P.x + 1; i <= 8; i++) {
-			if (board[P.y][i] != NULL && temp == 1 && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
-				tmp.x = i;
-				Position.push_back(tmp);
-				break;
-			}
-			if (board[P.y][i] != NULL) {
-				temp++;
-			}
-			else if (board[P.y][i] == NULL && temp == 0) {
-				tmp.x = i;
-				Position.push_back(tmp);
-			}
-		}
-		temp = 0;
-		for (int i = P.x - 1; i >= 0; i--) {
-			if (board[P.y][i] != NULL && temp == 1 && board[P.y][i]->GetColor() != board[P.y][P.x]->GetColor()) {
-				tmp.x = i;
-				Position.push_back(tmp);
-				break;
-			}
-			if (board[P.y][i] != NULL) {
-				temp++;
-			}
-			else if (board[P.y][i] == NULL && temp == 0) {
-				tmp.x = i;
-				Position.push_back(tmp);
-			}
-		}
-		tmp = P;
-		temp = 0;
-		for (int i = P.y + 1; i <= 9; i++) {
-			if (board[i][P.x] != NULL && temp == 1 && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
-				tmp.y = i;
-				Position.push_back(tmp);
-				break;
-			}
-			if (board[i][P.x] != NULL) {
-				temp++;
-			}
-			else if (board[i][P.x] == NULL && temp == 0) {
-				tmp.y = i;
-				Position.push_back(tmp);
-			}
-		}
-		temp = 0;
-		for (int i = P.y - 1; i >= 0; i--) {
-			if (board[i][P.x] != NULL && temp == 1 && board[i][P.x]->GetColor() != board[P.y][P.x]->GetColor()) {
-				tmp.y = i;
-				Position.push_back(tmp);
-				break;
-			}
-			if (board[i][P.x] != NULL) {
-				temp++;
-			}
-			else if (board[i][P.x] == NULL && temp == 0) {
-				tmp.y = i;
-				Position.push_back(tmp);
-			}
-		}
-		break;
-	case 6:
-		if (!board[P.y][P.x]->GetColor()) {
-			if (P.y <= 8 && (board[P.y + 1][P.x] == NULL || (board[P.y + 1][P.x]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.y += 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.y >= 5 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x += 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.y >= 5 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x -= 1;
-				Position.push_back(tmp);
-			}
-		}
-		else {
-			tmp = P;
-			if (P.y >= 1 && (board[P.y - 1][P.x] == NULL || (board[P.y - 1][P.x]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.y -= 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.y <= 4 && (board[P.y][P.x + 1] == NULL || (board[P.y][P.x + 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x += 1;
-				Position.push_back(tmp);
-			}
-			tmp = P;
-			if (P.y <= 4 && (board[P.y][P.x - 1] == NULL || (board[P.y][P.x - 1]->GetColor() != board[P.y][P.x]->GetColor()))) {
-				tmp.x -= 1;
-				Position.push_back(tmp);
-			}
-		}
-		break;
-	}
+	Position = board[P.y][P.x]->CanMove(P,boardinfo);
 	return Position;
 }
 void Board::MovePos(Pos PosFirst, Pos PosSecond) {
 	Chess* temp;
+
 	board[PosFirst.y][PosFirst.x]->SetPos(PosSecond);
+
 	temp = board[PosFirst.y][PosFirst.x];
 	board[PosSecond.y][PosSecond.x] = temp;
 	board[PosFirst.y][PosFirst.x] = NULL;
+
+	boardinfo[PosSecond.y][PosSecond.x] = boardinfo[PosFirst.y][PosFirst.x];
+	boardinfo[PosFirst.y][PosFirst.x] = 0;
 
 }

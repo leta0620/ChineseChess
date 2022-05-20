@@ -28,7 +28,7 @@
     </font>
    </property>
    <property name="text">
-    <string>是否要再來ㄧ局?</string>
+    <string>是否要再來一局?</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

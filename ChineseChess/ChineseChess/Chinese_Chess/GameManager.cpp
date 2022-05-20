@@ -61,23 +61,52 @@ void GameManager::moveChess(Pos pos)
 	// 移動棋子
 	boardGM.MovePos(this->nowMovChess, pos);
 
-	// 出log檔
+	// 輸出log檔
 	if (!file.is_open())
 	{
 		file.open(this->fileName);
 	}
 
-	if (boardGM.board[pos.y][pos.x]->GetColor() == false)
+	file << "Player: ";
+	if (this->gamePlayer == true)
 	{
-		file << "Black";
+		file << "1";
 	}
-	else if (boardGM.board[pos.y][pos.x]->GetColor() == true)
+	else if (this->gamePlayer == false)
 	{
-		file << "Red";
+		file << "2";
 	}
-	file << " " << boardGM.board[pos.y][pos.x]->GetName() <<
-		" move from (" << nowMovChess.x << ", " << nowMovChess.y <<
-		") to (" << pos.x << ", " << pos.y << ")\n";
+	file << ", Action: ";
+
+	switch (boardGM.board[pos.y][pos.x]->GetName())
+	{
+	case 0:
+		file << "General";
+		break;
+	case 1:
+		file << "Advisor";
+		break;
+	case 2:
+		file << "Elephant";
+		break;
+	case 3:
+		file << "Chariot";
+		break;
+	case 4:
+		file << "Horse";
+		break;
+	case 5:
+		file << "Cannon";
+		break;
+	case 6:
+		file << "Soldier";
+		break;
+	default:
+		break;
+	}
+
+	file << " (" << nowMovChess.x << ", " << nowMovChess.y <<
+		") -> (" << pos.x << ", " << pos.y << ")\n";
 
 	// 重置參數
 	this->nowMovChess.x = 0;
@@ -222,29 +251,7 @@ void GameManager::ResetGame()
 	this->fileName = tmp.fileName;
 	this->gamePlayer = tmp.gamePlayer;
 	this->boardGM.AllSet();
-
-	//Board tmpB;
-	//this->boardGM = tmpB;
-	//this->gamePlayer = true;
-
-	//std::vector<Pos> newLigalList;
-	//// 將紅棋設為legalList
-	//for (int y = 0; y < 10; y++)
-	//{
-	//	for (int x = 0; x < 9; x++)
-	//	{
-	//		if (boardGM.board[y][x] != NULL)
-	//		{
-	//			if (boardGM.board[y][x]->GetColor() == gamePlayer)
-	//			{
-	//				newLigalList.push_back(boardGM.board[y][x]->GetPos());
-	//			}
-	//		}
-	//	}
-	//}
-	//this->legalPos = newLigalList;
-
-	//this->fileName = GetTime() + ".txt";
+	this->SetGameStart(true);
 }
 
 // 讀取遊戲是否開始
@@ -259,7 +266,14 @@ void GameManager::SetGameStart(bool in)
 	this->gameStart = in;
 }
 
+
 bool GameManager::GetGamePlayer()
 {
 	return gamePlayer;
+}
+
+// 讀取檔案，更改盤面
+void LoadLog()
+{
+	std::ifstream Log;
 }

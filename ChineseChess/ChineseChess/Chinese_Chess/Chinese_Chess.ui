@@ -157,11 +157,11 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>19</pointsize>
+       <pointsize>16</pointsize>
       </font>
      </property>
      <property name="text">
-      <string>回主畫面</string>
+      <string>儲存並返回</string>
      </property>
     </widget>
     <widget class="QTextBrowser" name="textBrowser">

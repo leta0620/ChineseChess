@@ -1,6 +1,19 @@
 #include "Chinese_Chess.h"
 #include "Pos.h"
 
+void Chinese_Chess::CallGameOver()
+{
+    gameRound = true;
+    gameRun.GameOver();
+    gameRun.boardGM.AllSet();
+    gameRun.viewer.paintout();
+}
+
+void Chinese_Chess::CallGameStart()
+{
+    gameRun.ResetGame();
+}
+
 Chinese_Chess::Chinese_Chess(QWidget *parent)
     : QWidget(parent)
 {
@@ -43,8 +56,7 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
 //按鈕切換頁面
 void Chinese_Chess::on_pushButton_Start_onclicked()
 {
-    gameRun.ResetGame();
-    gameRun.SetGameStart(true);
+    this->CallGameStart();
 
     ui.stackedWidget->setCurrentIndex(1);
 }
@@ -53,7 +65,7 @@ void Chinese_Chess::on_pushButton_Start_onclicked()
 void Chinese_Chess::on_pushButton_Back_onclicked()
 {
     // 強制結束這場遊戲，close Log檔
-    gameRun.GameOver();
+    this->CallGameOver();
     ui.stackedWidget->setCurrentIndex(0);
 }
 
@@ -68,6 +80,7 @@ void Chinese_Chess::on_pushButton_Surrender_onclicked()
 {
     gm.SendResult(gameRun.GetGamePlayer());
     gm.show();
+    this->CallGameOver();
     /*
     if (gameRun.GetGamePlayer())
         ui.textBrowser->setText(QString::fromLocal8Bit("黑方獲勝"));
@@ -78,6 +91,8 @@ void Chinese_Chess::on_pushButton_Surrender_onclicked()
 
 void Chinese_Chess::receiveSel(bool sel)
 {
+    // 如要重新一局，記得寫
+    this->CallGameStart();
     if (sel)
         ui.textBrowser->setText(QString::fromLocal8Bit("黑方獲勝!"));
     else
@@ -171,8 +186,7 @@ void Chinese_Chess::GameProcess(Pos pos)
 {
     if (!gameRun.GetGameStart())
     {
-        gameRun.ResetGame();
-        gameRun.SetGameStart(true);
+        this->CallGameStart();
     }
 
     if (this->gameRound)
@@ -207,7 +221,7 @@ void Chinese_Chess::GameProcess(Pos pos)
             // 跳遊戲結束警示框，紅方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
             ui.textBrowser->setText("Red win");
 
-            gameRun.GameOver();
+            this->CallGameOver();
             return;
         }
         else if (win == 2)
@@ -215,7 +229,7 @@ void Chinese_Chess::GameProcess(Pos pos)
             // 跳遊戲結束警示框，黑方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
             ui.textBrowser->setText("Black win");
 
-            gameRun.GameOver();
+            this->CallGameOver();
             return;
         }
 
