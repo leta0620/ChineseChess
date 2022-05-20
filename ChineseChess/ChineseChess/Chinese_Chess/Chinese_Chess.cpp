@@ -245,7 +245,6 @@ void Chinese_Chess::GameProcess(Pos pos)
         {
             // 跳黑方將軍警示框
             ui.textBrowser->setText("Black will win");
-
         }
     }
 }

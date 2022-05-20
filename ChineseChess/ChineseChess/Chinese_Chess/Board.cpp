@@ -105,6 +105,30 @@ void Board::AllSet() {
 std::vector<Pos> Board::CanMovePos(Pos P) {
 	std::vector<Pos> Position;
 	Position = board[P.y][P.x]->CanMove(P,boardinfo);
+	if (board[P.y][P.x]->GetName()==0) {
+		if (!board[P.y][P.x]->GetColor()) {
+			for (int i = P.y + 1; i <= 9; i++) {
+				if (board[i][P.x] != NULL && board[i][P.x]->GetName()==0) {
+					Pos tmp(P.x,i);
+					Position.push_back(tmp);
+				}
+				else if (board[i][P.x] != NULL) {
+					break;
+				}
+			}
+		}
+		else{
+			for (int i = P.y - 1; i >= 0; i--) {
+				if (board[i][P.x] != NULL && board[i][P.x]->GetName() == 0) {
+					Pos tmp(P.x, i);
+					Position.push_back(tmp);
+				}
+				else if (board[i][P.x] != NULL) {
+					break;
+				}
+			}
+		}
+	}
 	return Position;
 }
 void Board::MovePos(Pos PosFirst, Pos PosSecond) {
