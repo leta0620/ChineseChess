@@ -101,8 +101,6 @@ void Board::AllSet() {
 		boardinfo[2][j] = 1;
 		boardinfo[7][j] = 2;
 	}
-	boardinfo[0][4] = 10;
-	boardinfo[9][4] = 20;
 }
 std::vector<Pos> Board::CanMovePos(Pos P) {
 	std::vector<Pos> Position;
