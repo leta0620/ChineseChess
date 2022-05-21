@@ -102,31 +102,17 @@
     </QtUic>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Filter Include="Form Files">
-      <UniqueIdentifier>{5a99b340-efca-4c48-9459-707472fa31a1}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{1aeedba4-7395-4b0c-a362-39378156b0a1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
-      <UniqueIdentifier>{fccfdca0-5513-4ed0-806c-941a981765fb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{31e9ad48-e88a-45cb-afd0-5eed0ba2603a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{b89d1171-6f41-4781-9e74-0a543e3cc177}</UniqueIdentifier>
-=======
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{6cdf24f8-fff4-437c-8371-0f85f8c720f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{c3cd5da7-d3ff-4a4f-b36c-fde22aee3fec}</UniqueIdentifier>
+      <UniqueIdentifier>{83f1e80b-f8e5-4cd1-a5f8-4c2a2156ca2b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Form Files">
-      <UniqueIdentifier>{d3a222d7-f076-4580-96fb-15a1eeac8cba}</UniqueIdentifier>
+      <UniqueIdentifier>{f2b0ed09-3558-4800-808e-8ca0c48599cd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
-      <UniqueIdentifier>{f2ea34d4-75aa-4ea9-87d6-ff1891d566fb}</UniqueIdentifier>
->>>>>>> 09f5b218a71fa0b224abbfa9523b3a8310650e1d
+      <UniqueIdentifier>{72140c06-9796-403e-9cad-e4173bcfe519}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

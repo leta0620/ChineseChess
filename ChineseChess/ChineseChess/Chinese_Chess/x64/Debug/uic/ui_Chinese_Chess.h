@@ -14,7 +14,6 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStackedWidget>
-#include <QtWidgets/QTextBrowser>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -26,13 +25,11 @@ public:
     QWidget *page_0;
     QPushButton *pushButton_Start;
     QPushButton *pushButton_Load;
-    QPushButton *pushButton_Other;
     QPushButton *pushButton_Exit;
     QLabel *label;
     QLabel *label_2;
     QWidget *page_1;
     QPushButton *pushButton_Back;
-    QTextBrowser *textBrowser;
     QPushButton *pushButton_Surrender;
     QLabel *label_Turn;
     QLabel *label_4;
@@ -60,26 +57,31 @@ public:
         pushButton_Start->setFont(font);
         pushButton_Load = new QPushButton(page_0);
         pushButton_Load->setObjectName(QString::fromUtf8("pushButton_Load"));
-        pushButton_Load->setGeometry(QRect(500, 400, 201, 51));
+        pushButton_Load->setGeometry(QRect(500, 460, 201, 51));
         pushButton_Load->setFont(font);
-        pushButton_Other = new QPushButton(page_0);
-        pushButton_Other->setObjectName(QString::fromUtf8("pushButton_Other"));
-        pushButton_Other->setGeometry(QRect(500, 520, 201, 51));
-        pushButton_Other->setFont(font);
         pushButton_Exit = new QPushButton(page_0);
         pushButton_Exit->setObjectName(QString::fromUtf8("pushButton_Exit"));
         pushButton_Exit->setGeometry(QRect(500, 650, 201, 51));
         pushButton_Exit->setFont(font);
         label = new QLabel(page_0);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(410, 70, 381, 61));
+        label->setGeometry(QRect(410, 50, 381, 81));
         QFont font1;
-        font1.setPointSize(35);
+        font1.setFamily(QString::fromUtf8("\346\250\231\346\245\267\351\253\224"));
+        font1.setPointSize(60);
+        font1.setBold(false);
+        font1.setWeight(50);
         label->setFont(font1);
         label->setAlignment(Qt::AlignCenter);
         label_2 = new QLabel(page_0);
         label_2->setObjectName(QString::fromUtf8("label_2"));
-        label_2->setGeometry(QRect(520, 140, 151, 16));
+        label_2->setGeometry(QRect(500, 140, 211, 41));
+        QFont font2;
+        font2.setFamily(QString::fromUtf8("Comic Sans MS"));
+        font2.setPointSize(20);
+        font2.setBold(false);
+        font2.setWeight(50);
+        label_2->setFont(font2);
         label_2->setAlignment(Qt::AlignCenter);
         stackedWidget->addWidget(page_0);
         page_1 = new QWidget();
@@ -87,48 +89,44 @@ public:
         page_1->setAutoFillBackground(true);
         pushButton_Back = new QPushButton(page_1);
         pushButton_Back->setObjectName(QString::fromUtf8("pushButton_Back"));
-        pushButton_Back->setGeometry(QRect(1050, 720, 111, 51));
-        QFont font2;
-        font2.setPointSize(16);
-        pushButton_Back->setFont(font2);
-        textBrowser = new QTextBrowser(page_1);
-        textBrowser->setObjectName(QString::fromUtf8("textBrowser"));
-        textBrowser->setGeometry(QRect(930, 140, 256, 41));
+        pushButton_Back->setGeometry(QRect(1000, 720, 131, 51));
         QFont font3;
-        font3.setPointSize(15);
-        textBrowser->setFont(font3);
+        font3.setPointSize(16);
+        pushButton_Back->setFont(font3);
         pushButton_Surrender = new QPushButton(page_1);
         pushButton_Surrender->setObjectName(QString::fromUtf8("pushButton_Surrender"));
-        pushButton_Surrender->setGeometry(QRect(1050, 640, 111, 51));
-        pushButton_Surrender->setFont(font3);
+        pushButton_Surrender->setGeometry(QRect(1000, 640, 131, 51));
+        QFont font4;
+        font4.setPointSize(15);
+        pushButton_Surrender->setFont(font4);
         label_Turn = new QLabel(page_1);
         label_Turn->setObjectName(QString::fromUtf8("label_Turn"));
-        label_Turn->setGeometry(QRect(950, 30, 211, 51));
-        QFont font4;
-        font4.setPointSize(24);
-        label_Turn->setFont(font4);
+        label_Turn->setGeometry(QRect(960, 120, 211, 51));
+        QFont font5;
+        font5.setPointSize(24);
+        label_Turn->setFont(font5);
         label_Turn->setAlignment(Qt::AlignCenter);
         label_4 = new QLabel(page_1);
         label_4->setObjectName(QString::fromUtf8("label_4"));
         label_4->setGeometry(QRect(990, 300, 161, 21));
-        label_4->setFont(font3);
+        label_4->setFont(font4);
         label_4->setAlignment(Qt::AlignCenter);
         label_3 = new QLabel(page_1);
         label_3->setObjectName(QString::fromUtf8("label_3"));
         label_3->setGeometry(QRect(990, 200, 161, 21));
-        label_3->setFont(font3);
+        label_3->setFont(font4);
         label_3->setAlignment(Qt::AlignCenter);
         label_GameTime = new QLabel(page_1);
         label_GameTime->setObjectName(QString::fromUtf8("label_GameTime"));
         label_GameTime->setGeometry(QRect(990, 235, 151, 51));
-        QFont font5;
-        font5.setPointSize(22);
-        label_GameTime->setFont(font5);
+        QFont font6;
+        font6.setPointSize(22);
+        label_GameTime->setFont(font6);
         label_GameTime->setAlignment(Qt::AlignCenter);
         label_RoundTime = new QLabel(page_1);
         label_RoundTime->setObjectName(QString::fromUtf8("label_RoundTime"));
         label_RoundTime->setGeometry(QRect(990, 340, 151, 51));
-        label_RoundTime->setFont(font5);
+        label_RoundTime->setFont(font6);
         label_RoundTime->setAlignment(Qt::AlignCenter);
         stackedWidget->addWidget(page_1);
 
@@ -145,7 +143,6 @@ public:
         Chinese_ChessClass->setWindowTitle(QCoreApplication::translate("Chinese_ChessClass", "Chinese_Chess", nullptr));
         pushButton_Start->setText(QCoreApplication::translate("Chinese_ChessClass", "\351\226\213\345\247\213\351\201\212\346\210\262", nullptr));
         pushButton_Load->setText(QCoreApplication::translate("Chinese_ChessClass", "\347\271\274\347\272\214\351\201\212\346\210\262", nullptr));
-        pushButton_Other->setText(QCoreApplication::translate("Chinese_ChessClass", "\345\205\266\345\256\203", nullptr));
         pushButton_Exit->setText(QCoreApplication::translate("Chinese_ChessClass", "\347\265\220\346\235\237", nullptr));
         label->setText(QCoreApplication::translate("Chinese_ChessClass", "\350\261\241\346\243\213", nullptr));
         label_2->setText(QCoreApplication::translate("Chinese_ChessClass", "Elephant Chess", nullptr));
