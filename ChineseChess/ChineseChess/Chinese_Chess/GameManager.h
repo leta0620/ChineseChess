@@ -37,11 +37,14 @@ public:
 	bool GetGameStart();
 	// 設定遊戲開始
 	void SetGameStart(bool in);
-	// 讀取檔案，更改盤面
-	void LoadLog();
 	// 獲取玩家
 	bool GetGamePlayer();
-
+	// 設定檔案
+	void SetFileName(std::string fileName);
+	// 設定玩家
+	void SetGamePlayer(bool player);
+	// 將一種顏色的棋子設為合法
+	void SetColorLegalPos(bool color);
 
 	//-----------物件---------------
 	// 

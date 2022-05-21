@@ -122,7 +122,8 @@ void GameManager::moveChess(Pos pos)
 	this->gamePlayer = !this->gamePlayer;	// 切換玩家
 
 	// 更改ligalList
-	std::vector<Pos> newLigalList;
+	SetColorLegalPos(gamePlayer);
+	/*std::vector<Pos> newLigalList;
 	for (int y = 0; y < 10; y++)
 	{
 		for (int x = 0; x < 9; x++)
@@ -136,7 +137,7 @@ void GameManager::moveChess(Pos pos)
 			}
 		}
 	}
-	this->legalPos = newLigalList;
+	this->legalPos = newLigalList;*/
 
 	return;
 }
@@ -273,14 +274,41 @@ void GameManager::SetGameStart(bool in)
 	this->gameStart = in;
 }
 
-
+// 設定遊戲開始
 bool GameManager::GetGamePlayer()
 {
 	return gamePlayer;
 }
 
-// 讀取檔案，更改盤面
-void LoadLog()
+// 設定檔案
+void GameManager::SetFileName(std::string fileName)
 {
-	std::ifstream Log;
+	this->fileName = fileName;
+}
+
+// 設定玩家
+void GameManager::SetGamePlayer(bool player)
+{
+	this->gamePlayer = player;
+}
+
+// 將一種顏色的棋子設為合法
+void GameManager::SetColorLegalPos(bool color)
+{
+	// 更改ligalList
+	std::vector<Pos> newLigalList;
+	for (int y = 0; y < 10; y++)
+	{
+		for (int x = 0; x < 9; x++)
+		{
+			if (boardGM.board[y][x] != NULL)
+			{
+				if (boardGM.board[y][x]->GetColor() == color)
+				{
+					newLigalList.push_back(boardGM.board[y][x]->GetPos());
+				}
+			}
+		}
+	}
+	this->legalPos = newLigalList;
 }

@@ -1,4 +1,5 @@
 #include "Chinese_Chess.h"
+#include "QFileDialog"
 #include "Pos.h"
 
 void Chinese_Chess::CallGameOver()
@@ -41,6 +42,7 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
 
     //連接按鈕與事件
     connect(ui.pushButton_Start, SIGNAL(clicked()), this, SLOT(on_pushButton_Start_onclicked()));
+    connect(ui.pushButton_Load, SIGNAL(clicked()), this, SLOT(on_pushButton_Load_onclicked()));
     connect(ui.pushButton_Back, SIGNAL(clicked()), this, SLOT(on_pushButton_Back_onclicked()));
     connect(ui.pushButton_Exit, SIGNAL(clicked()), this, SLOT(on_pushButton_Exit_onclicked()));
     connect(ui.pushButton_Surrender, SIGNAL(clicked()), this, SLOT(on_pushButton_Surrender_onclicked()));
@@ -87,6 +89,90 @@ void Chinese_Chess::on_pushButton_Surrender_onclicked()
     else
         ui.textBrowser->setText(QString::fromLocal8Bit("紅方獲勝"));
     */
+}
+
+// 讀檔進行遊戲
+void Chinese_Chess::on_pushButton_Load_onclicked()
+{
+    // 查找log檔路徑
+    this->FindLogPath();
+
+    // 路徑不為空
+    if (!this->logPath.empty())
+    {
+        this->CallGameStart();
+
+        std::ifstream logFile(this->logPath);
+        std::string logInput;
+
+        char player = '0';    // 紅為true，黑為false
+        std::string chess;
+        Pos from, to;
+
+        // 將盤面執行到log檔的最新狀況
+        try
+        {
+            int i = 0;
+            while (!logFile.eof())
+            {
+                logFile.ignore(8);
+                if (logFile.eof())
+                {
+                    logFile.close();
+                    break;
+                }
+                logFile >> player;
+                if (player != '1' && player != '2')
+                {
+                    throw "player error";
+                }
+                logFile.ignore(10);
+                logFile >> chess;
+
+                char posTmp;
+                logFile >> posTmp >> posTmp;
+                from.x = posTmp - '0';
+                logFile.ignore(2);
+                logFile >> posTmp;
+                from.y = posTmp - '0';
+
+                logFile.ignore(6);
+                logFile >> posTmp;
+                to.x = posTmp - '0';
+                logFile.ignore(2);
+                logFile >> posTmp;
+                to.y = posTmp - '0';
+                logFile.ignore(1);
+
+                gameRun.boardGM.MovePos(from, to);
+                i++;
+            }
+
+            // 設定繼續遊戲需要的參數，並跳轉到遊戲畫面
+            this->gameRun.SetFileName(logPath);
+            gameRound = true;
+            if (player == '1')
+            {
+                this->gameRun.SetGamePlayer(false);
+                this->gameRun.SetColorLegalPos(false);
+            }
+            else if (player == '2')
+            {
+                this->gameRun.SetGamePlayer(true);
+                this->gameRun.SetColorLegalPos(true);
+            }
+            ui.stackedWidget->setCurrentIndex(1);
+        }
+        catch (const std::string& errorMessage)
+        {
+            if (logFile.is_open())
+            {
+                logFile.close();
+            }
+            this->CallGameOver();
+            return;
+        }
+    }
 }
 
 void Chinese_Chess::receiveSel(bool sel)
@@ -246,5 +332,20 @@ void Chinese_Chess::GameProcess(Pos pos)
             // 跳黑方將軍警示框
             ui.textBrowser->setText("Black will win");
         }
+    }
+}
+
+// 開啟資料夾，選擇Log檔路徑
+void Chinese_Chess::FindLogPath()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, "a...", "*.txt");
+    if (filePath.isEmpty())
+    {
+        return;
+    }
+    else {
+        // 將路徑轉換成string
+        QByteArray tempData = filePath.toLocal8Bit();
+        logPath = std::string(tempData);
     }
 }

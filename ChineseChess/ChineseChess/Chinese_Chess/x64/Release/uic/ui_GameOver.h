@@ -22,8 +22,8 @@ class Ui_Dialog
 public:
     QLabel *label_1;
     QLabel *label_0;
-    QPushButton *cancelButton;
-    QPushButton *okButton;
+    QPushButton *pushButton_No;
+    QPushButton *pushButton_Yes;
 
     void setupUi(QDialog *Dialog)
     {
@@ -44,20 +44,20 @@ public:
         font1.setPointSize(38);
         label_0->setFont(font1);
         label_0->setAlignment(Qt::AlignCenter);
-        cancelButton = new QPushButton(Dialog);
-        cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
-        cancelButton->setGeometry(QRect(200, 112, 171, 61));
+        pushButton_No = new QPushButton(Dialog);
+        pushButton_No->setObjectName(QString::fromUtf8("pushButton_No"));
+        pushButton_No->setGeometry(QRect(200, 112, 171, 61));
         QFont font2;
         font2.setPointSize(30);
-        cancelButton->setFont(font2);
-        okButton = new QPushButton(Dialog);
-        okButton->setObjectName(QString::fromUtf8("okButton"));
-        okButton->setGeometry(QRect(20, 112, 171, 61));
-        okButton->setFont(font2);
+        pushButton_No->setFont(font2);
+        pushButton_Yes = new QPushButton(Dialog);
+        pushButton_Yes->setObjectName(QString::fromUtf8("pushButton_Yes"));
+        pushButton_Yes->setGeometry(QRect(20, 112, 171, 61));
+        pushButton_Yes->setFont(font2);
 
         retranslateUi(Dialog);
-        QObject::connect(okButton, SIGNAL(clicked()), Dialog, SLOT(accept()));
-        QObject::connect(cancelButton, SIGNAL(clicked()), Dialog, SLOT(reject()));
+        QObject::connect(pushButton_Yes, SIGNAL(clicked()), Dialog, SLOT(accept()));
+        QObject::connect(pushButton_No, SIGNAL(clicked()), Dialog, SLOT(reject()));
 
         QMetaObject::connectSlotsByName(Dialog);
     } // setupUi
@@ -65,10 +65,10 @@ public:
     void retranslateUi(QDialog *Dialog)
     {
         Dialog->setWindowTitle(QCoreApplication::translate("Dialog", "Dialog", nullptr));
-        label_1->setText(QCoreApplication::translate("Dialog", "\346\230\257\345\220\246\350\246\201\345\206\215\344\276\206\343\204\247\345\261\200?", nullptr));
+        label_1->setText(QCoreApplication::translate("Dialog", "\346\230\257\345\220\246\350\246\201\345\206\215\344\276\206\344\270\200\345\261\200?", nullptr));
         label_0->setText(QCoreApplication::translate("Dialog", "\347\264\205\346\226\271\347\215\262\345\213\235!", nullptr));
-        cancelButton->setText(QCoreApplication::translate("Dialog", "\345\220\246", nullptr));
-        okButton->setText(QCoreApplication::translate("Dialog", "\346\230\257", nullptr));
+        pushButton_No->setText(QCoreApplication::translate("Dialog", "\345\220\246", nullptr));
+        pushButton_Yes->setText(QCoreApplication::translate("Dialog", "\346\230\257", nullptr));
     } // retranslateUi
 
 };
