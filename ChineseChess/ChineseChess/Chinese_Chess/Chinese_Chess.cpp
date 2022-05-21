@@ -1,17 +1,28 @@
 #include "Chinese_Chess.h"
+#include "QFileDialog"
 #include "Pos.h"
 
 void Chinese_Chess::CallGameOver()
 {
-    gameRound = true;
     gameRun.GameOver();
     gameRun.boardGM.AllSet();
     gameRun.viewer.paintout();
+    timer.stop();
 }
 
 void Chinese_Chess::CallGameStart()
 {
     gameRun.ResetGame();
+    gameRound = true;
+
+    if (gameRun.GetGamePlayer())
+        ui.label_Turn->setText(QString::fromLocal8Bit("紅方回合"));
+    else
+        ui.label_Turn->setText(QString::fromLocal8Bit("黑方回合"));
+    roundSec = 30;
+    gameSec = 0;
+    this->timeUpdate();
+    timer.start(1000);
 }
 
 Chinese_Chess::Chinese_Chess(QWidget *parent)
@@ -41,6 +52,7 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
 
     //連接按鈕與事件
     connect(ui.pushButton_Start, SIGNAL(clicked()), this, SLOT(on_pushButton_Start_onclicked()));
+    connect(ui.pushButton_Load, SIGNAL(clicked()), this, SLOT(on_pushButton_Load_onclicked()));
     connect(ui.pushButton_Back, SIGNAL(clicked()), this, SLOT(on_pushButton_Back_onclicked()));
     connect(ui.pushButton_Exit, SIGNAL(clicked()), this, SLOT(on_pushButton_Exit_onclicked()));
     connect(ui.pushButton_Surrender, SIGNAL(clicked()), this, SLOT(on_pushButton_Surrender_onclicked()));
@@ -48,9 +60,10 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
     // 設定遊戲所需變數
     this->gameRound = true;
 
-    //GameOver gm = new GameOver;
-
+    gm.setFixedSize(QSize(400, 200));
     connect(&gm, SIGNAL(sendSel(bool)), this, SLOT(receiveSel(bool)));
+
+    connect(&timer, SIGNAL(timeout()), this, SLOT(timeGo()));
 }
 
 //按鈕切換頁面
@@ -78,15 +91,91 @@ void Chinese_Chess::on_pushButton_Exit_onclicked()
 //按鈕投降
 void Chinese_Chess::on_pushButton_Surrender_onclicked()
 {
-    gm.SendResult(gameRun.GetGamePlayer());
-    gm.show();
-    this->CallGameOver();
-    /*
-    if (gameRun.GetGamePlayer())
-        ui.textBrowser->setText(QString::fromLocal8Bit("黑方獲勝"));
-    else
-        ui.textBrowser->setText(QString::fromLocal8Bit("紅方獲勝"));
-    */
+    Win(!gameRun.GetGamePlayer());
+}
+
+// 讀檔進行遊戲
+void Chinese_Chess::on_pushButton_Load_onclicked()
+{
+    // 查找log檔路徑
+    this->FindLogPath();
+
+    // 路徑不為空
+    if (!this->logPath.empty())
+    {
+        this->CallGameStart();
+
+        std::ifstream logFile(this->logPath);
+        std::string logInput;
+
+        char player = '0';    // 紅為true，黑為false
+        std::string chess;
+        Pos from, to;
+
+        // 將盤面執行到log檔的最新狀況
+        try
+        {
+            int i = 0;
+            while (!logFile.eof())
+            {
+                logFile.ignore(8);
+                if (logFile.eof())
+                {
+                    logFile.close();
+                    break;
+                }
+                logFile >> player;
+                if (player != '1' && player != '2')
+                {
+                    throw "player error";
+                }
+                logFile.ignore(10);
+                logFile >> chess;
+
+                char posTmp;
+                logFile >> posTmp >> posTmp;
+                from.x = posTmp - '0';
+                logFile.ignore(2);
+                logFile >> posTmp;
+                from.y = posTmp - '0';
+
+                logFile.ignore(6);
+                logFile >> posTmp;
+                to.x = posTmp - '0';
+                logFile.ignore(2);
+                logFile >> posTmp;
+                to.y = posTmp - '0';
+                logFile.ignore(1);
+
+                gameRun.boardGM.MovePos(from, to);
+                i++;
+            }
+
+            // 設定繼續遊戲需要的參數，並跳轉到遊戲畫面
+            this->gameRun.SetFileName(logPath);
+            gameRound = true;
+            if (player == '1')
+            {
+                this->gameRun.SetGamePlayer(false);
+                this->gameRun.SetColorLegalPos(false);
+            }
+            else if (player == '2')
+            {
+                this->gameRun.SetGamePlayer(true);
+                this->gameRun.SetColorLegalPos(true);
+            }
+            ui.stackedWidget->setCurrentIndex(1);
+        }
+        catch (const std::string& errorMessage)
+        {
+            if (logFile.is_open())
+            {
+                logFile.close();
+            }
+            this->CallGameOver();
+            return;
+        }
+    }
 }
 
 void Chinese_Chess::receiveSel(bool sel)
@@ -94,11 +183,21 @@ void Chinese_Chess::receiveSel(bool sel)
     // 如要重新一局，記得寫
     this->CallGameStart();
     if (sel)
-        ui.textBrowser->setText(QString::fromLocal8Bit("黑方獲勝!"));
+        this->on_pushButton_Start_onclicked();
     else
-        ui.textBrowser->setText(QString::fromLocal8Bit("紅方獲勝!"));
+        this->on_pushButton_Back_onclicked();
     gm.hide();
 
+}
+
+void Chinese_Chess::timeGo()
+{
+    roundSec--;
+    gameSec++;
+    if(roundSec<0)
+        Win(!gameRun.GetGamePlayer());
+    else
+        this->timeUpdate();
 }
 //事件過濾器
 bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
@@ -123,9 +222,9 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
             }
         }
         if (gameRun.GetGamePlayer())
-            ui.label_3->setText(QString::fromLocal8Bit("紅方回合"));
+            ui.label_Turn->setText(QString::fromLocal8Bit("紅方回合"));
         else
-            ui.label_3->setText(QString::fromLocal8Bit("黑方回合"));
+            ui.label_Turn->setText(QString::fromLocal8Bit("黑方回合"));
         return true;
     }
     //繪圖事件
@@ -181,6 +280,39 @@ void Chinese_Chess::prints()
     }
 }
 
+void Chinese_Chess::timeUpdate()
+{
+    int min = gameSec / 60;
+    QString toDisplyGameTime;
+    if (min < 10)
+    {
+        toDisplyGameTime = "0" + QString::number(min);
+    }
+    else
+    {
+        toDisplyGameTime = QString::number(min);
+    }
+    toDisplyGameTime += " : ";
+    if (gameSec % 60 < 10)
+    {
+        toDisplyGameTime += "0" + QString::number(gameSec % 60);
+    }
+    else
+    {
+        toDisplyGameTime += QString::number(gameSec % 60);
+    }
+
+    ui.label_GameTime->setText(toDisplyGameTime);
+    ui.label_RoundTime->setText(QString::number(roundSec));
+}
+
+void Chinese_Chess::Win(bool whoWin)
+{
+    gm.SendResult(whoWin);
+    gm.show();
+    this->CallGameOver();
+}
+
 //遊戲進程
 void Chinese_Chess::GameProcess(Pos pos)
 {
@@ -216,20 +348,13 @@ void Chinese_Chess::GameProcess(Pos pos)
 
         // 判斷勝負
         int win = gameRun.Win();
-        if (win == 1)
+        if (win == 1 || win == 2)
         {
-            // 跳遊戲結束警示框，紅方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
-            ui.textBrowser->setText("Red win");
-
-            this->CallGameOver();
-            return;
-        }
-        else if (win == 2)
-        {
-            // 跳遊戲結束警示框，黑方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
-            ui.textBrowser->setText("Black win");
-
-            this->CallGameOver();
+            // 跳遊戲結束警示框，某方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
+            if (win == 1)
+                this->Win(true);
+            else if (win == 2)
+                this->Win(false);
             return;
         }
 
@@ -237,14 +362,34 @@ void Chinese_Chess::GameProcess(Pos pos)
         int willWin = gameRun.WillWin();
         if (willWin == 1)
         {
+            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("紅方將軍!"));
             // 跳紅方將軍警示框
             ui.textBrowser->setText("Red will win");
 
         }
         else if (willWin == 2)
         {
+            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
             // 跳黑方將軍警示框
             ui.textBrowser->setText("Black will win");
         }
+
+        roundSec = 30;
+        this->timeUpdate();
+    }
+}
+
+// 開啟資料夾，選擇Log檔路徑
+void Chinese_Chess::FindLogPath()
+{
+    QString filePath = QFileDialog::getOpenFileName(this, "a...", "*.txt");
+    if (filePath.isEmpty())
+    {
+        return;
+    }
+    else {
+        // 將路徑轉換成string
+        QByteArray tempData = filePath.toLocal8Bit();
+        logPath = std::string(tempData);
     }
 }
