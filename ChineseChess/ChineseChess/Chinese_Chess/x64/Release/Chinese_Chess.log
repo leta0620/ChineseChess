@@ -1,0 +1,25 @@
+﻿  Reading Qt configuration (K:/QT/5.15.2/msvc2019_64/bin/qmake)
+  uic Chinese_Chess.ui
+  uic GameOver.ui
+  rcc Chinese_Chess.qrc
+  moc Chinese_Chess.h
+  Board.cpp
+  Chess0.cpp
+  Chess1.cpp
+  Chess2.cpp
+  Chess3.cpp
+  Chess4.cpp
+  Chess5.cpp
+  Chess6.cpp
+  GameManager.cpp
+  GameOver.cpp
+  Pos.cpp
+  Viewer.cpp
+  Chess.cpp
+  Chinese_Chess.cpp
+  main.cpp
+D:\OOP project\中國象棋\git\ChineseChess\test\ChineseChess\ChineseChess\ChineseChess\Chinese_Chess\GameManager.cpp(155,6): warning C4809: switch statement has redundant 'default' label; all possible 'case' labels are given
+  moc_GameOver.cpp
+  moc_Chinese_Chess.cpp
+  qrc_Chinese_Chess.cpp
+  Chinese_Chess.vcxproj -> D:\OOP project\中國象棋\git\ChineseChess\test\ChineseChess\ChineseChess\ChineseChess\x64\Release\Chinese_Chess.exe

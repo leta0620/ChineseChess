@@ -80,7 +80,7 @@ void Chinese_Chess::on_pushButton_Start_onclicked()
 //按鈕切換頁面
 void Chinese_Chess::on_pushButton_Back_onclicked()
 {
-    // 強制結束這場遊戲，close Log檔
+    // 強制結束這場遊戲
     this->CallGameOver();
     ui.stackedWidget->setCurrentIndex(0);
 }
@@ -142,6 +142,11 @@ void Chinese_Chess::on_pushButton_Load_onclicked()
                 logFile >> posTmp;
                 from.y = posTmp - '0';
 
+                if (!(from.x >= 0 && from.x <= 9) || !(from.y >= 0 && from.y <= 10))
+                {
+                    throw "position error";
+                }
+
                 logFile.ignore(6);
                 logFile >> posTmp;
                 to.x = posTmp - '0';
@@ -150,13 +155,43 @@ void Chinese_Chess::on_pushButton_Load_onclicked()
                 to.y = posTmp - '0';
                 logFile.ignore(1);
 
+                if (!(to.x >= 0 && to.x <= 9) || !(to.y >= 0 && to.y <= 10))
+                {
+                    throw "position error";
+                }
+
                 gameRun.boardGM.MovePos(from, to);
                 i++;
+            }
+
+            // 如果已有一方勝利，要跳出勝利視窗不可繼續遊戲
+            int win = gameRun.Win();
+            if (win == 1 || win == 2)
+            {
+                // 跳遊戲結束警示框，某方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
+                if (win == 1)
+                {
+                    ui.stackedWidget->setCurrentIndex(1);
+                    this->Win(true);
+                }
+                else if (win == 2)
+                {
+                    ui.stackedWidget->setCurrentIndex(1);
+                    this->Win(false);
+                }
+                return;
             }
 
             // 設定繼續遊戲需要的參數，並跳轉到遊戲畫面
             this->gameRun.SetFileName(logPath);
             gameRound = true;
+
+            if (player == '2')
+                ui.label_Turn->setText(QString::fromLocal8Bit("紅方回合"));
+            else if (player == '1')
+                ui.label_Turn->setText(QString::fromLocal8Bit("黑方回合"));
+
+            // 設定目前進行到哪位玩家
             if (player == '1')
             {
                 this->gameRun.SetGamePlayer(false);
@@ -167,6 +202,7 @@ void Chinese_Chess::on_pushButton_Load_onclicked()
                 this->gameRun.SetGamePlayer(true);
                 this->gameRun.SetColorLegalPos(true);
             }
+
             ui.stackedWidget->setCurrentIndex(1);
         }
         catch (const std::string& errorMessage)
@@ -190,7 +226,6 @@ void Chinese_Chess::receiveSel(bool sel)
     else
         this->on_pushButton_Back_onclicked();
     gm.hide();
-
 }
 
 //每秒更新
@@ -218,6 +253,22 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
         Pos clickPos(x, y);
         for (int check = 0; check < gameRun.GetLegalPos().size(); check++)
         {
+            // 取消想移動的棋子
+            if ((gameRun.GetNowMoveChess() == clickPos) && (gameRound == false))
+            {
+                // 重新處理合法位置
+                gameRun.SetColorLegalPos(gameRun.GetGamePlayer());
+
+                // 重新繪製盤面
+                gameRun.viewer.paintout();
+
+                // 更改遊戲進程
+                this->gameRound = !this->gameRound;
+                
+                break;
+            }
+
+            // 如果點擊到合法位置，進行遊戲迴圈
             if (gameRun.GetLegalPos()[check] == clickPos)
             {
                 GameProcess(clickPos);
@@ -378,6 +429,19 @@ void Chinese_Chess::GameProcess(Pos pos)
         {
             // 跳黑方將軍警示框
             QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
+        }
+        else if (willWin == 3)
+        {
+            if (this->gameRun.GetGamePlayer() == true)
+            {
+                // 跳紅方將軍警示框
+                QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("紅方將軍!"));              
+            }
+            else if (this->gameRun.GetGamePlayer() == false)
+            {
+                // 跳黑方將軍警示框
+                QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
+            }
         }
 
         roundSec = 30;

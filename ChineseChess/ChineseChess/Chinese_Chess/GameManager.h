@@ -45,6 +45,8 @@ public:
 	void SetGamePlayer(bool player);
 	// 將一種顏色的棋子設為合法
 	void SetColorLegalPos(bool color);
+	// 獲取目前正在移動的棋子
+	Pos GetNowMoveChess();
 
 	//-----------物件---------------
 	// 

@@ -173,6 +173,8 @@ int GameManager::Win()
 // 是否將軍
 int GameManager::WillWin()
 {
+	bool rW = false, bW = false;
+
 	// 檢查盤面
 	for (int y = 0; y < 10; y++)
 	{
@@ -181,35 +183,47 @@ int GameManager::WillWin()
 			// 若此位置有棋子
 			if (boardGM.board[y][x] != NULL)
 			{
-				if (boardGM.board[y][x]->GetColor() == !gamePlayer)
-				{
-					std::vector<Pos> legalPos;
-					Pos tmp(x, y);
-					legalPos = boardGM.CanMovePos(tmp);
+				std::vector<Pos> legalPos;
+				Pos tmp(x, y);
+				legalPos = boardGM.CanMovePos(tmp);
 
-					// 檢查可移動的位置中是否有對方將/帥
-					for (int check = 0; check < legalPos.size(); check++)
+				// 檢查可移動的位置中是否有對方將/帥
+				for (int check = 0; check < legalPos.size(); check++)
+				{
+					if (boardGM.board[legalPos[check].y][legalPos[check].x] != NULL)
 					{
-						if (boardGM.board[legalPos[check].y][legalPos[check].x] != NULL)
+						if (boardGM.board[legalPos[check].y][legalPos[check].x]->GetName() == 0 && boardGM.board[legalPos[check].y][legalPos[check].x]->GetColor() == !(boardGM.board[tmp.y][tmp.x]->GetColor()))
 						{
-							if (boardGM.board[legalPos[check].y][legalPos[check].x]->GetName() == 0 && boardGM.board[legalPos[check].y][legalPos[check].x]->GetColor() == gamePlayer)
+							if (boardGM.board[tmp.y][tmp.x]->GetColor() == true)
 							{
-								if (!gamePlayer == true)
-								{
-									// 紅方將軍
-									return 1;
-								}
-								if (!gamePlayer == false)
-								{
-									// 黑方將軍
-									return 2;
-								}
+								// 紅方將軍
+								rW = true;
+								//return 1;
+							}
+							if (boardGM.board[tmp.y][tmp.x]->GetColor() == false)
+							{
+								// 黑方將軍
+								bW = true;
+								//return 2;
 							}
 						}
 					}
 				}
 			}
 		}
+	}
+
+	if (rW && bW)
+	{
+		return 3;
+	}
+	else if (rW)
+	{
+		return 1;
+	}
+	else if (bW)
+	{
+		return 2;
 	}
 
 	return 0;
@@ -296,4 +310,10 @@ void GameManager::SetColorLegalPos(bool color)
 		}
 	}
 	this->legalPos = newLigalList;
+}
+
+// 獲取目前正在移動的棋子
+Pos GameManager::GetNowMoveChess()
+{
+	return this->nowMovChess;
 }
