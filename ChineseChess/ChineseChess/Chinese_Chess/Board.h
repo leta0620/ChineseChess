@@ -13,7 +13,7 @@ class Board
 public:
 	// 預設建構子
 	Board();
-	void AllSet();
+	void AllSet(); //初始化盤面
 
 	std::vector<Pos> CanMovePos(Pos P);			// 棋子可移動的位置
 	void MovePos(Pos PosFirst, Pos PosSecond);	// 移動棋子位置
@@ -22,6 +22,7 @@ public:
 	std::vector<std::vector<int>> boardinfo; //棋子需要的資訊 0:空 1:黑 2:紅
 
 private:
+	// ----------棋子----------
 	Chess0 B0,R0;
 	Chess1 B1_0, B1_1, R1_0, R1_1;
 	Chess2 B2_0, B2_1, R2_0, R2_1;
@@ -29,4 +30,5 @@ private:
 	Chess4 B4_0, B4_1, R4_0, R4_1;
 	Chess5 B5_0, B5_1, R5_0, R5_1;
 	Chess6 B6_0, B6_1, B6_2, B6_3, B6_4, R6_0, R6_1, R6_2, R6_3, R6_4;
+	// ------------------------
 };

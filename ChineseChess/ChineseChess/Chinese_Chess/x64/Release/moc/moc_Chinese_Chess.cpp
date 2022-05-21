@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Chinese_Chess_t {
     QByteArrayData data[10];
-    char stringdata0[179];
+    char stringdata0[188];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,19 +36,20 @@ QT_MOC_LITERAL(0, 0, 13), // "Chinese_Chess"
 QT_MOC_LITERAL(1, 14, 29), // "on_pushButton_Start_onclicked"
 QT_MOC_LITERAL(2, 44, 0), // ""
 QT_MOC_LITERAL(3, 45, 28), // "on_pushButton_Back_onclicked"
-QT_MOC_LITERAL(4, 74, 28), // "on_pushButton_Exit_onclicked"
-QT_MOC_LITERAL(5, 103, 33), // "on_pushButton_Surrender_oncli..."
-QT_MOC_LITERAL(6, 137, 10), // "receiveSel"
-QT_MOC_LITERAL(7, 148, 3), // "sel"
-QT_MOC_LITERAL(8, 152, 12), // "CallGameOver"
-QT_MOC_LITERAL(9, 165, 13) // "CallGameStart"
+QT_MOC_LITERAL(4, 74, 28), // "on_pushButton_Load_onclicked"
+QT_MOC_LITERAL(5, 103, 28), // "on_pushButton_Exit_onclicked"
+QT_MOC_LITERAL(6, 132, 33), // "on_pushButton_Surrender_oncli..."
+QT_MOC_LITERAL(7, 166, 10), // "receiveSel"
+QT_MOC_LITERAL(8, 177, 3), // "sel"
+QT_MOC_LITERAL(9, 181, 6) // "timeGo"
 
     },
     "Chinese_Chess\0on_pushButton_Start_onclicked\0"
     "\0on_pushButton_Back_onclicked\0"
+    "on_pushButton_Load_onclicked\0"
     "on_pushButton_Exit_onclicked\0"
     "on_pushButton_Surrender_onclicked\0"
-    "receiveSel\0sel\0CallGameOver\0CallGameStart"
+    "receiveSel\0sel\0timeGo"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,8 +71,8 @@ static const uint qt_meta_data_Chinese_Chess[] = {
        3,    0,   50,    2, 0x08 /* Private */,
        4,    0,   51,    2, 0x08 /* Private */,
        5,    0,   52,    2, 0x08 /* Private */,
-       6,    1,   53,    2, 0x08 /* Private */,
-       8,    0,   56,    2, 0x08 /* Private */,
+       6,    0,   53,    2, 0x08 /* Private */,
+       7,    1,   54,    2, 0x08 /* Private */,
        9,    0,   57,    2, 0x08 /* Private */,
 
  // slots: parameters
@@ -79,8 +80,8 @@ static const uint qt_meta_data_Chinese_Chess[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool,    7,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    8,
     QMetaType::Void,
 
        0        // eod
@@ -94,11 +95,11 @@ void Chinese_Chess::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         switch (_id) {
         case 0: _t->on_pushButton_Start_onclicked(); break;
         case 1: _t->on_pushButton_Back_onclicked(); break;
-        case 2: _t->on_pushButton_Exit_onclicked(); break;
-        case 3: _t->on_pushButton_Surrender_onclicked(); break;
-        case 4: _t->receiveSel((*reinterpret_cast< bool(*)>(_a[1]))); break;
-        case 5: _t->CallGameOver(); break;
-        case 6: _t->CallGameStart(); break;
+        case 2: _t->on_pushButton_Load_onclicked(); break;
+        case 3: _t->on_pushButton_Exit_onclicked(); break;
+        case 4: _t->on_pushButton_Surrender_onclicked(); break;
+        case 5: _t->receiveSel((*reinterpret_cast< bool(*)>(_a[1]))); break;
+        case 6: _t->timeGo(); break;
         default: ;
         }
     }
