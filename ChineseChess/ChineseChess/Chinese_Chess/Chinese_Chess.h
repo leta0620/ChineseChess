@@ -5,6 +5,8 @@
 #include <QMouseEvent>
 #include <QPainter>
 #include <QPaintEvent>
+#include <QMessageBox>
+#include <QTimer>
 #include "Board.h"
 #include "GameManager.h"
 #include "ui_Chinese_Chess.h"
@@ -23,18 +25,23 @@ private slots :
     //void on_pushButton_Other_onclicked();
     void on_pushButton_Exit_onclicked();
     void on_pushButton_Surrender_onclicked();
-    void receiveSel(bool sel);
-    void CallGameOver();
-    void CallGameStart();
-
+    void receiveSel(bool);
+    void timeGo();
 private:
     Ui::Chinese_ChessClass ui;
     bool eventFilter(QObject* obj, QEvent* eve);
     void prints();
-    void GameProcess(Pos);
+    void GameProcess(Pos);    
+    void CallGameOver();
+    void CallGameStart();
+    void Win(bool);
+    void timeUpdate();
     GameOver gm;
 
     // 遊戲進行所需變數
     bool gameRound;  // 遊戲進行步驟，gameRound = true為點擊想移動的旗子，gameRound = false為實際移動旗子。
     GameManager gameRun;    // 遊戲執行動作
+    QTimer timer;
+    int roundSec;
+    int gameSec;
 };
