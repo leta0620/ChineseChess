@@ -4,6 +4,8 @@
         <file>Chessimg/choose.png</file>
         <file>Chessimg/toMove.png</file>
         <file>Chess_Board.png</file>
+        <file>Chessimg/toMoveRed.png</file>
+        <file>Elephant.jpg</file>
     </qresource>
     <qresource prefix="/chess">
         <file>Chessimg/black0.png</file>

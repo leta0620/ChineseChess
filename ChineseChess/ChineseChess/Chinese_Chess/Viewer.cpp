@@ -11,5 +11,4 @@ void Viewer::SetUi(Ui::Chinese_ChessClass* inpUi)
 void Viewer::paintout()
 {
 	ui.page_1->update();
-	ui.textBrowser->setText("abcdef");
 }

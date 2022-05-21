@@ -22,7 +22,6 @@ private slots :
     void on_pushButton_Start_onclicked();
     void on_pushButton_Back_onclicked();
     void on_pushButton_Load_onclicked();
-    //void on_pushButton_Other_onclicked();
     void on_pushButton_Exit_onclicked();
     void on_pushButton_Surrender_onclicked();
 

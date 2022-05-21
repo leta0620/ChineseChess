@@ -54,7 +54,7 @@
      <property name="geometry">
       <rect>
        <x>500</x>
-       <y>400</y>
+       <y>460</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -66,24 +66,6 @@
      </property>
      <property name="text">
       <string>繼續遊戲</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_Other">
-     <property name="geometry">
-      <rect>
-       <x>500</x>
-       <y>520</y>
-       <width>201</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>19</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>其它</string>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_Exit">
@@ -108,14 +90,17 @@
      <property name="geometry">
       <rect>
        <x>410</x>
-       <y>70</y>
+       <y>50</y>
        <width>381</width>
-       <height>61</height>
+       <height>81</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>35</pointsize>
+       <family>標楷體</family>
+       <pointsize>60</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <property name="text">
@@ -128,11 +113,19 @@
     <widget class="QLabel" name="label_2">
      <property name="geometry">
       <rect>
-       <x>520</x>
+       <x>500</x>
        <y>140</y>
-       <width>151</width>
-       <height>16</height>
+       <width>211</width>
+       <height>41</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Comic Sans MS</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
      </property>
      <property name="text">
       <string>Elephant Chess</string>
@@ -149,9 +142,9 @@
     <widget class="QPushButton" name="pushButton_Back">
      <property name="geometry">
       <rect>
-       <x>1050</x>
+       <x>1000</x>
        <y>720</y>
-       <width>111</width>
+       <width>131</width>
        <height>51</height>
       </rect>
      </property>
@@ -164,27 +157,12 @@
       <string>儲存並返回</string>
      </property>
     </widget>
-    <widget class="QTextBrowser" name="textBrowser">
-     <property name="geometry">
-      <rect>
-       <x>930</x>
-       <y>140</y>
-       <width>256</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>15</pointsize>
-      </font>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_Surrender">
      <property name="geometry">
       <rect>
-       <x>1050</x>
+       <x>1000</x>
        <y>640</y>
-       <width>111</width>
+       <width>131</width>
        <height>51</height>
       </rect>
      </property>
@@ -200,8 +178,8 @@
     <widget class="QLabel" name="label_Turn">
      <property name="geometry">
       <rect>
-       <x>950</x>
-       <y>30</y>
+       <x>960</x>
+       <y>120</y>
        <width>211</width>
        <height>51</height>
       </rect>

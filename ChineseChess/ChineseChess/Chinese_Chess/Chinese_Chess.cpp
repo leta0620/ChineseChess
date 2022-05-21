@@ -2,6 +2,7 @@
 #include "QFileDialog"
 #include "Pos.h"
 
+//遊戲結束
 void Chinese_Chess::CallGameOver()
 {
     gameRun.GameOver();
@@ -10,6 +11,7 @@ void Chinese_Chess::CallGameOver()
     timer.stop();
 }
 
+//遊戲開始
 void Chinese_Chess::CallGameStart()
 {
     gameRun.ResetGame();
@@ -19,6 +21,7 @@ void Chinese_Chess::CallGameStart()
         ui.label_Turn->setText(QString::fromLocal8Bit("紅方回合"));
     else
         ui.label_Turn->setText(QString::fromLocal8Bit("黑方回合"));
+
     roundSec = 30;
     gameSec = 0;
     this->timeUpdate();
@@ -41,7 +44,7 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
     tempWidget->setPalette(palette);
 
     //設定背景(主畫面)
-    bkgnd.load(":/image/Desert.jpg");
+    bkgnd.load(":/image/Elephant.jpg");
     bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
     palette.setBrush(QPalette::Background, bkgnd);
     tempWidget = ui.stackedWidget->widget(0);
@@ -190,6 +193,7 @@ void Chinese_Chess::receiveSel(bool sel)
 
 }
 
+//每秒更新
 void Chinese_Chess::timeGo()
 {
     roundSec--;
@@ -199,6 +203,7 @@ void Chinese_Chess::timeGo()
     else
         this->timeUpdate();
 }
+
 //事件過濾器
 bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
 {
@@ -209,8 +214,6 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
         QString temp = QString::number(mouseEvent->x()) + " " + QString::number(mouseEvent->y()) + " ";
         int x = (mouseEvent->x() - 10) / 100;
         int y = (mouseEvent->y() - 8) / 80;
-        temp += QString::number(x) + " " + QString::number(y);
-        ui.textBrowser->setText(temp);
 
         Pos clickPos(x, y);
         for (int check = 0; check < gameRun.GetLegalPos().size(); check++)
@@ -231,7 +234,6 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
     else if(eve->type()== QEvent::Paint)
     {
         prints();
-        ui.textBrowser->setText(ui.textBrowser->toPlainText() + "a");
         return true;
     }
     else
@@ -272,14 +274,20 @@ void Chinese_Chess::prints()
                 Pos tmp(column, row);
                 for (int a = 0; a < legalPos.size();a++)
                 {
-                    if(legalPos[a]==tmp)
-                        painter.drawImage(QRect(10 + column * 100, 8 + row * 80, 80, 64), QImage(":/image/Chessimg/toMove.png"));
+                    if (legalPos[a] == tmp)
+                    {
+                        if(gameRun.boardGM.board[tmp.y][tmp.x] != NULL)
+                            painter.drawImage(QRect(10 + column * 100, 8 + row * 80, 80, 64), QImage(":/image/Chessimg/toMoveRed.png"));
+                        else
+                            painter.drawImage(QRect(10 + column * 100, 8 + row * 80, 80, 64), QImage(":/image/Chessimg/toMove.png"));
+                    }
                 }
             }
         }
     }
 }
 
+//更新計時顯示
 void Chinese_Chess::timeUpdate()
 {
     int min = gameSec / 60;
@@ -306,6 +314,7 @@ void Chinese_Chess::timeUpdate()
     ui.label_RoundTime->setText(QString::number(roundSec));
 }
 
+//顯示勝負結果
 void Chinese_Chess::Win(bool whoWin)
 {
     gm.SendResult(whoWin);
@@ -362,16 +371,13 @@ void Chinese_Chess::GameProcess(Pos pos)
         int willWin = gameRun.WillWin();
         if (willWin == 1)
         {
-            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("紅方將軍!"));
             // 跳紅方將軍警示框
-            ui.textBrowser->setText("Red will win");
-
+            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("紅方將軍!"));
         }
         else if (willWin == 2)
         {
-            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
             // 跳黑方將軍警示框
-            ui.textBrowser->setText("Black will win");
+            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
         }
 
         roundSec = 30;
@@ -387,7 +393,8 @@ void Chinese_Chess::FindLogPath()
     {
         return;
     }
-    else {
+    else
+    {
         // 將路徑轉換成string
         QByteArray tempData = filePath.toLocal8Bit();
         logPath = std::string(tempData);
