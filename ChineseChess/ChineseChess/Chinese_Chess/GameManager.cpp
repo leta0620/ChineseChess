@@ -297,3 +297,9 @@ void GameManager::SetColorLegalPos(bool color)
 	}
 	this->legalPos = newLigalList;
 }
+
+// 獲取目前正在移動的棋子
+Pos GameManager::GetNowMoveChess()
+{
+	return this->nowMovChess;
+}
