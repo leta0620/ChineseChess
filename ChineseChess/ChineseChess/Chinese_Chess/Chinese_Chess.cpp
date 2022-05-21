@@ -402,6 +402,21 @@ void Chinese_Chess::GameProcess(Pos pos)
             // 跳黑方將軍警示框
             ui.textBrowser->setText("Black will win");
         }
+        else if (willWin == 3)
+        {
+            if (this->gameRun.GetGamePlayer() == true)
+            {
+                QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("紅方將軍!"));
+                // 跳紅方將軍警示框
+                ui.textBrowser->setText("Red will win");
+            }
+            else if (this->gameRun.GetGamePlayer() == false)
+            {
+                QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
+                // 跳黑方將軍警示框
+                ui.textBrowser->setText("Black will win");
+            }
+        }
 
         roundSec = 30;
         this->timeUpdate();
