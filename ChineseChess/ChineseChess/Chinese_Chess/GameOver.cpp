@@ -22,7 +22,7 @@ void GameOver::on_pushButton_No_onclicked()
 void GameOver::SendResult(bool res)
 {
     if (res)
-        ui.label_0->setText(QString::fromLocal8Bit("黑方獲勝!"));
-    else
         ui.label_0->setText(QString::fromLocal8Bit("紅方獲勝!"));
+    else
+        ui.label_0->setText(QString::fromLocal8Bit("黑方獲勝!"));
 }

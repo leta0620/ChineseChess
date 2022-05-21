@@ -54,7 +54,7 @@
      <property name="geometry">
       <rect>
        <x>500</x>
-       <y>430</y>
+       <y>400</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -72,7 +72,7 @@
      <property name="geometry">
       <rect>
        <x>500</x>
-       <y>570</y>
+       <y>520</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -90,7 +90,7 @@
      <property name="geometry">
       <rect>
        <x>500</x>
-       <y>710</y>
+       <y>650</y>
        <width>201</width>
        <height>51</height>
       </rect>
@@ -197,7 +197,7 @@
       <string>投降</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="label_Turn">
      <property name="geometry">
       <rect>
        <x>950</x>
@@ -213,6 +213,90 @@
      </property>
      <property name="text">
       <string>紅方回合</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>990</x>
+       <y>300</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;剩餘時間 : &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>990</x>
+       <y>200</y>
+       <width>161</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>15</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;總遊戲時間 :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_GameTime">
+     <property name="geometry">
+      <rect>
+       <x>990</x>
+       <y>235</y>
+       <width>151</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>22</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Test</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_RoundTime">
+     <property name="geometry">
+      <rect>
+       <x>990</x>
+       <y>340</y>
+       <width>151</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>22</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Test</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

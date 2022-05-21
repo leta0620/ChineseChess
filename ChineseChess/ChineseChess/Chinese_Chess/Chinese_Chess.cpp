@@ -7,12 +7,22 @@ void Chinese_Chess::CallGameOver()
     gameRun.GameOver();
     gameRun.boardGM.AllSet();
     gameRun.viewer.paintout();
+    timer.stop();
 }
 
 void Chinese_Chess::CallGameStart()
 {
     gameRun.ResetGame();
     gameRound = true;
+
+    if (gameRun.GetGamePlayer())
+        ui.label_Turn->setText(QString::fromLocal8Bit("紅方回合"));
+    else
+        ui.label_Turn->setText(QString::fromLocal8Bit("黑方回合"));
+    roundSec = 30;
+    gameSec = 0;
+    this->timeUpdate();
+    timer.start(1000);
 }
 
 Chinese_Chess::Chinese_Chess(QWidget *parent)
@@ -50,9 +60,10 @@ Chinese_Chess::Chinese_Chess(QWidget *parent)
     // 設定遊戲所需變數
     this->gameRound = true;
 
-    //GameOver gm = new GameOver;
-
+    gm.setFixedSize(QSize(400, 200));
     connect(&gm, SIGNAL(sendSel(bool)), this, SLOT(receiveSel(bool)));
+
+    connect(&timer, SIGNAL(timeout()), this, SLOT(timeGo()));
 }
 
 //按鈕切換頁面
@@ -80,15 +91,7 @@ void Chinese_Chess::on_pushButton_Exit_onclicked()
 //按鈕投降
 void Chinese_Chess::on_pushButton_Surrender_onclicked()
 {
-    gm.SendResult(gameRun.GetGamePlayer());
-    gm.show();
-    this->CallGameOver();
-    /*
-    if (gameRun.GetGamePlayer())
-        ui.textBrowser->setText(QString::fromLocal8Bit("黑方獲勝"));
-    else
-        ui.textBrowser->setText(QString::fromLocal8Bit("紅方獲勝"));
-    */
+    Win(!gameRun.GetGamePlayer());
 }
 
 // 讀檔進行遊戲
@@ -180,11 +183,21 @@ void Chinese_Chess::receiveSel(bool sel)
     // 如要重新一局，記得寫
     this->CallGameStart();
     if (sel)
-        ui.textBrowser->setText(QString::fromLocal8Bit("黑方獲勝!"));
+        this->on_pushButton_Start_onclicked();
     else
-        ui.textBrowser->setText(QString::fromLocal8Bit("紅方獲勝!"));
+        this->on_pushButton_Back_onclicked();
     gm.hide();
 
+}
+
+void Chinese_Chess::timeGo()
+{
+    roundSec--;
+    gameSec++;
+    if(roundSec<0)
+        Win(!gameRun.GetGamePlayer());
+    else
+        this->timeUpdate();
 }
 //事件過濾器
 bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
@@ -209,9 +222,9 @@ bool Chinese_Chess::eventFilter(QObject* obj, QEvent* eve)
             }
         }
         if (gameRun.GetGamePlayer())
-            ui.label_3->setText(QString::fromLocal8Bit("紅方回合"));
+            ui.label_Turn->setText(QString::fromLocal8Bit("紅方回合"));
         else
-            ui.label_3->setText(QString::fromLocal8Bit("黑方回合"));
+            ui.label_Turn->setText(QString::fromLocal8Bit("黑方回合"));
         return true;
     }
     //繪圖事件
@@ -267,6 +280,39 @@ void Chinese_Chess::prints()
     }
 }
 
+void Chinese_Chess::timeUpdate()
+{
+    int min = gameSec / 60;
+    QString toDisplyGameTime;
+    if (min < 10)
+    {
+        toDisplyGameTime = "0" + QString::number(min);
+    }
+    else
+    {
+        toDisplyGameTime = QString::number(min);
+    }
+    toDisplyGameTime += " : ";
+    if (gameSec % 60 < 10)
+    {
+        toDisplyGameTime += "0" + QString::number(gameSec % 60);
+    }
+    else
+    {
+        toDisplyGameTime += QString::number(gameSec % 60);
+    }
+
+    ui.label_GameTime->setText(toDisplyGameTime);
+    ui.label_RoundTime->setText(QString::number(roundSec));
+}
+
+void Chinese_Chess::Win(bool whoWin)
+{
+    gm.SendResult(whoWin);
+    gm.show();
+    this->CallGameOver();
+}
+
 //遊戲進程
 void Chinese_Chess::GameProcess(Pos pos)
 {
@@ -302,20 +348,13 @@ void Chinese_Chess::GameProcess(Pos pos)
 
         // 判斷勝負
         int win = gameRun.Win();
-        if (win == 1)
+        if (win == 1 || win == 2)
         {
-            // 跳遊戲結束警示框，紅方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
-            ui.textBrowser->setText("Red win");
-
-            this->CallGameOver();
-            return;
-        }
-        else if (win == 2)
-        {
-            // 跳遊戲結束警示框，黑方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
-            ui.textBrowser->setText("Black win");
-
-            this->CallGameOver();
+            // 跳遊戲結束警示框，某方勝利，並讓玩家選擇返回至主畫面 or 重新開始一局
+            if (win == 1)
+                this->Win(true);
+            else if (win == 2)
+                this->Win(false);
             return;
         }
 
@@ -323,15 +362,20 @@ void Chinese_Chess::GameProcess(Pos pos)
         int willWin = gameRun.WillWin();
         if (willWin == 1)
         {
+            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("紅方將軍!"));
             // 跳紅方將軍警示框
             ui.textBrowser->setText("Red will win");
 
         }
         else if (willWin == 2)
         {
+            QMessageBox::warning(this, QString::fromLocal8Bit("將軍!"), QString::fromLocal8Bit("黑方將軍!"));
             // 跳黑方將軍警示框
             ui.textBrowser->setText("Black will win");
         }
+
+        roundSec = 30;
+        this->timeUpdate();
     }
 }
 

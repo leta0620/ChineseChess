@@ -34,7 +34,11 @@ public:
     QPushButton *pushButton_Back;
     QTextBrowser *textBrowser;
     QPushButton *pushButton_Surrender;
+    QLabel *label_Turn;
+    QLabel *label_4;
     QLabel *label_3;
+    QLabel *label_GameTime;
+    QLabel *label_RoundTime;
 
     void setupUi(QWidget *Chinese_ChessClass)
     {
@@ -56,15 +60,15 @@ public:
         pushButton_Start->setFont(font);
         pushButton_Load = new QPushButton(page_0);
         pushButton_Load->setObjectName(QString::fromUtf8("pushButton_Load"));
-        pushButton_Load->setGeometry(QRect(500, 430, 201, 51));
+        pushButton_Load->setGeometry(QRect(500, 400, 201, 51));
         pushButton_Load->setFont(font);
         pushButton_Other = new QPushButton(page_0);
         pushButton_Other->setObjectName(QString::fromUtf8("pushButton_Other"));
-        pushButton_Other->setGeometry(QRect(500, 570, 201, 51));
+        pushButton_Other->setGeometry(QRect(500, 520, 201, 51));
         pushButton_Other->setFont(font);
         pushButton_Exit = new QPushButton(page_0);
         pushButton_Exit->setObjectName(QString::fromUtf8("pushButton_Exit"));
-        pushButton_Exit->setGeometry(QRect(500, 710, 201, 51));
+        pushButton_Exit->setGeometry(QRect(500, 650, 201, 51));
         pushButton_Exit->setFont(font);
         label = new QLabel(page_0);
         label->setObjectName(QString::fromUtf8("label"));
@@ -97,13 +101,35 @@ public:
         pushButton_Surrender->setObjectName(QString::fromUtf8("pushButton_Surrender"));
         pushButton_Surrender->setGeometry(QRect(1050, 640, 111, 51));
         pushButton_Surrender->setFont(font3);
-        label_3 = new QLabel(page_1);
-        label_3->setObjectName(QString::fromUtf8("label_3"));
-        label_3->setGeometry(QRect(950, 30, 211, 51));
+        label_Turn = new QLabel(page_1);
+        label_Turn->setObjectName(QString::fromUtf8("label_Turn"));
+        label_Turn->setGeometry(QRect(950, 30, 211, 51));
         QFont font4;
         font4.setPointSize(24);
-        label_3->setFont(font4);
+        label_Turn->setFont(font4);
+        label_Turn->setAlignment(Qt::AlignCenter);
+        label_4 = new QLabel(page_1);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setGeometry(QRect(990, 300, 161, 21));
+        label_4->setFont(font3);
+        label_4->setAlignment(Qt::AlignCenter);
+        label_3 = new QLabel(page_1);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setGeometry(QRect(990, 200, 161, 21));
+        label_3->setFont(font3);
         label_3->setAlignment(Qt::AlignCenter);
+        label_GameTime = new QLabel(page_1);
+        label_GameTime->setObjectName(QString::fromUtf8("label_GameTime"));
+        label_GameTime->setGeometry(QRect(990, 235, 151, 51));
+        QFont font5;
+        font5.setPointSize(22);
+        label_GameTime->setFont(font5);
+        label_GameTime->setAlignment(Qt::AlignCenter);
+        label_RoundTime = new QLabel(page_1);
+        label_RoundTime->setObjectName(QString::fromUtf8("label_RoundTime"));
+        label_RoundTime->setGeometry(QRect(990, 340, 151, 51));
+        label_RoundTime->setFont(font5);
+        label_RoundTime->setAlignment(Qt::AlignCenter);
         stackedWidget->addWidget(page_1);
 
         retranslateUi(Chinese_ChessClass);
@@ -125,7 +151,11 @@ public:
         label_2->setText(QCoreApplication::translate("Chinese_ChessClass", "Elephant Chess", nullptr));
         pushButton_Back->setText(QCoreApplication::translate("Chinese_ChessClass", "\345\204\262\345\255\230\344\270\246\350\277\224\345\233\236", nullptr));
         pushButton_Surrender->setText(QCoreApplication::translate("Chinese_ChessClass", "\346\212\225\351\231\215", nullptr));
-        label_3->setText(QCoreApplication::translate("Chinese_ChessClass", "\347\264\205\346\226\271\345\233\236\345\220\210", nullptr));
+        label_Turn->setText(QCoreApplication::translate("Chinese_ChessClass", "\347\264\205\346\226\271\345\233\236\345\220\210", nullptr));
+        label_4->setText(QCoreApplication::translate("Chinese_ChessClass", "<html><head/><body><p>\345\211\251\351\244\230\346\231\202\351\226\223 : </p></body></html>", nullptr));
+        label_3->setText(QCoreApplication::translate("Chinese_ChessClass", "<html><head/><body><p>\347\270\275\351\201\212\346\210\262\346\231\202\351\226\223 :</p></body></html>", nullptr));
+        label_GameTime->setText(QCoreApplication::translate("Chinese_ChessClass", "Test", nullptr));
+        label_RoundTime->setText(QCoreApplication::translate("Chinese_ChessClass", "Test", nullptr));
     } // retranslateUi
 
 };

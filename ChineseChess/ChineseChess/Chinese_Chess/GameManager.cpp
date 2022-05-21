@@ -123,21 +123,6 @@ void GameManager::moveChess(Pos pos)
 
 	// §ó§ïligalList
 	SetColorLegalPos(gamePlayer);
-	/*std::vector<Pos> newLigalList;
-	for (int y = 0; y < 10; y++)
-	{
-		for (int x = 0; x < 9; x++)
-		{
-			if (boardGM.board[y][x] != NULL)
-			{
-				if (boardGM.board[y][x]->GetColor() == gamePlayer)
-				{
-					newLigalList.push_back(boardGM.board[y][x]->GetPos());
-				}
-			}
-		}
-	}
-	this->legalPos = newLigalList;*/
 
 	return;
 }
