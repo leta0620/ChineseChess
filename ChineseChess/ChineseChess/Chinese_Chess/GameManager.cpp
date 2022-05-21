@@ -62,51 +62,59 @@ void GameManager::moveChess(Pos pos)
 	boardGM.MovePos(this->nowMovChess, pos);
 
 	// 輸出log檔
-	if (!file.is_open())
-	{
-		file.open(this->fileName);
-	}
+	file = new std::fstream(fileName, std::ios::app);
+	std::string log;
 
-	file << "Player: ";
+	log += "Player: ";
 	if (this->gamePlayer == true)
 	{
-		file << "1";
+		log += "1";
 	}
 	else if (this->gamePlayer == false)
 	{
-		file << "2";
+		log += "2";
 	}
-	file << ", Action: ";
+	log += ", Action: ";
 
 	switch (boardGM.board[pos.y][pos.x]->GetName())
 	{
 	case 0:
-		file << "General";
+		log += "General";
 		break;
 	case 1:
-		file << "Advisor";
+		log += "Advisor";
 		break;
 	case 2:
-		file << "Elephant";
+		log += "Elephant";
 		break;
 	case 3:
-		file << "Chariot";
+		log += "Chariot";
 		break;
 	case 4:
-		file << "Horse";
+		log += "Horse";
 		break;
 	case 5:
-		file << "Cannon";
+		log += "Cannon";
 		break;
 	case 6:
-		file << "Soldier";
+		log += "Soldier";
 		break;
 	default:
 		break;
 	}
 
-	file << " (" << nowMovChess.x << ", " << nowMovChess.y <<
-		") -> (" << pos.x << ", " << pos.y << ")\n";
+	log += " (";
+	log += std::to_string(nowMovChess.x);
+	log += ", ";
+	log += std::to_string(nowMovChess.y);
+	log += ") -> (";
+	log += std::to_string(pos.x);
+	log += ", ";
+	log += std::to_string(pos.y);
+	log += ")\n";
+
+	file->write(log.c_str(), log.size());
+	file->close();
 
 	// 重置參數
 	this->nowMovChess.x = 0;
@@ -238,7 +246,6 @@ void GameManager::SetLegalPos(std::vector<Pos> legalPos)
 void GameManager::GameOver()
 {
 	this->gameStart = false;
-	this->file.close();
 }
 
 // 重新開始遊戲

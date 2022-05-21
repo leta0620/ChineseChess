@@ -63,7 +63,7 @@ private:
 	std::string fileName;
 	
 	// log 檔
-	std::ofstream file;
+	std::fstream* file;
 
 	// 遊戲進行到哪個階段，gamePlayer = true為紅，反之。
 	bool gamePlayer;

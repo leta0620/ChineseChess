@@ -3,7 +3,6 @@
 
 void Chinese_Chess::CallGameOver()
 {
-    gameRound = true;
     gameRun.GameOver();
     gameRun.boardGM.AllSet();
     gameRun.viewer.paintout();
@@ -12,6 +11,7 @@ void Chinese_Chess::CallGameOver()
 void Chinese_Chess::CallGameStart()
 {
     gameRun.ResetGame();
+    gameRound = true;
 }
 
 Chinese_Chess::Chinese_Chess(QWidget *parent)
