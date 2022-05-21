@@ -13,7 +13,7 @@ public:
 	Pos GetPos();
 	bool GetColor();
 	int GetName();
-	virtual std::vector<Pos> CanMove(Pos P, std::vector<std::vector<int>> Boardinfo)=0;
+	virtual std::vector<Pos> CanMove(Pos P, std::vector<std::vector<int>> Boardinfo)=0; // 可移動位置
 protected:
 	Pos pos;	// 位置
 	bool color = false; // 紅為true，黑為false
